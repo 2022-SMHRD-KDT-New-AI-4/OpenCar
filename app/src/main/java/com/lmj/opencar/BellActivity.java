@@ -21,6 +21,9 @@ public class BellActivity extends AppCompatActivity {
         btn_ok1 = findViewById(R.id.btn_ok1);
         sp_list = findViewById(R.id.sp_list);
 
+        Intent it_get = getIntent();
+        final String RID = it_get.getStringExtra("id");
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(
@@ -31,9 +34,10 @@ public class BellActivity extends AppCompatActivity {
         btn_ok1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it_ok = new Intent(BellActivity.this,MainActivity.class);
-                // it_ok.putExtra(); 스피너 값을 가지고 올때 사용
-                startActivity(it_ok);
+                Intent it_bell = new Intent();
+                it_bell.putExtra("id",RID);
+                setResult(RESULT_OK,it_bell);
+                finish();
             }
         });
 

@@ -10,12 +10,15 @@ import android.widget.TextView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -41,9 +44,44 @@ public class PattenActivity extends AppCompatActivity {
         tv_title.setText(id + "님의 졸음운전 패턴");
 
         // 1. 수평 막대 그래프
+        horizontalbarchart.setDrawBarShadow(false);
+        horizontalbarchart.setDrawValueAboveBar(true);
+        horizontalbarchart.getDescription().setEnabled(false);
+        horizontalbarchart.setPinchZoom(false);
+        horizontalbarchart.setDrawGridBackground(true);
 
+        XAxis xl = horizontalbarchart.getXAxis();
+        xl.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xl.setDrawAxisLine(true);
+        xl.setDrawGridLines(false);
 
+        YAxis yl = horizontalbarchart.getAxisLeft();
+        yl.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        yl.setDrawGridLines(false);
+        yl.setEnabled(false);
+        yl.setAxisMinimum(0f);
 
+        YAxis yr = horizontalbarchart.getAxisRight();
+        yr.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        yr.setDrawGridLines(false);
+        yr.setAxisMinimum(0f);
+
+        // 막대 값
+        ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
+        for (int i = 0; i < 6; i++) {
+            yVals1.add(new BarEntry(i, (i+1)*10));
+        }
+
+        BarDataSet set1;
+        set1 = new BarDataSet(yVals1, "DataSet 1");
+        ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
+        set1.setColors(ColorTemplate.MATERIAL_COLORS);
+        dataSets.add(set1);
+        BarData data = new BarData(dataSets);
+        data.setValueTextSize(10f);
+        data.setBarWidth(.9f);
+        horizontalbarchart.setData(data);
+        horizontalbarchart.getLegend().setEnabled(false);
 
 
         // 2. 꺾은선형 그래프
@@ -79,8 +117,6 @@ public class PattenActivity extends AppCompatActivity {
 
         linechart.invalidate(); // 차트 업데이트
         linechart.setTouchEnabled(false); // 차트 터치 disable
-
-
 
 
         // 3.막대 그래프 샘플 데이터

@@ -24,6 +24,9 @@ public class SettingActivity extends AppCompatActivity {
         tv_val1 = findViewById(R.id.tv_val1);
         tv_val2 = findViewById(R.id.tv_val2);
 
+        Intent it_get = getIntent();
+        final String RID = it_get.getStringExtra("id");
+
         bellbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -66,9 +69,10 @@ public class SettingActivity extends AppCompatActivity {
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it_set = new Intent(SettingActivity.this,MainActivity.class);
-                // it_set.putExtra() 세팅한 값 가지고 올때 사용하기
-                startActivity(it_set);
+                Intent it_setting = new Intent();
+                it_setting.putExtra("id",RID);
+                setResult(RESULT_OK,it_setting);
+                finish();
             }
         });
 

@@ -1,5 +1,9 @@
 package com.lmj.opencar;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -28,23 +32,6 @@ public class MainActivity extends AppCompatActivity {
         img_setting = findViewById(R.id.img_setting);
         img_bell = findViewById(R.id.img_bell);
 
-        img_setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it_setting = new Intent(MainActivity.this,SettingActivity.class);
-                startActivity(it_setting);
-            }
-        });
-
-        img_bell.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it_bell = new Intent(MainActivity.this,BellActivity.class);
-                startActivity(it_bell);
-            }
-        });
-
-
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         String inputText = auto.getString("inputId", "");
 
@@ -56,6 +43,38 @@ public class MainActivity extends AppCompatActivity {
         if (nid != null) {
             tv_user.setText(nid + "님");
         }
+
+
+        final String RID = nid;
+        final String RID2 = inputText;
+
+        img_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it_setting = new Intent(MainActivity.this,SettingActivity.class);
+                it_setting.putExtra("id",RID);
+                if (RID == null) {
+                    it_setting.putExtra("id", RID2);
+                }
+                launcher.launch(it_setting);
+            }
+        });
+
+        // 벨버튼 클릭 이벤트
+        img_bell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it_bell = new Intent(MainActivity.this,BellActivity.class);
+                it_bell.putExtra("id",RID);
+                if (RID == null) {
+                    it_bell.putExtra("id", RID2);
+                }
+                launcher.launch(it_bell);
+            }
+        });
+
+
+
 
         // 로그 아웃 버튼 이벤트
         btn_logout.setOnClickListener(new View.OnClickListener() {
@@ -94,4 +113,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    ActivityResultLauncher<Intent> launcher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    new ActivityResultCallback<ActivityResult>() {
+                        @Override
+                        public void onActivityResult(ActivityResult result) {
+                            if (result.getResultCode() == RESULT_OK){
+                                String id = result.getData().getStringExtra("id");
+                                tv_user.setText(id+"님");
+                            }
+                        }
+                    });
+
+
 }
