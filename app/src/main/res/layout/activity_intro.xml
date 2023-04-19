@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_base"
+    android:layout_gravity="center"
+    tools:context=".IntroActivity">
+
+    <ImageView
+        android:layout_width="144dp"
+        android:layout_height="91dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="141dp"
+        android:layout_marginBottom="337dp"
+        app:srcCompat="@drawable/car" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="253dp"
+        android:layout_height="62dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="83dp"
+        android:layout_marginBottom="449dp"
+        android:text="졸음운전 OUT"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="157dp"
+        android:layout_marginBottom="278dp"
+        android:text="어서오세요"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/img_loding"
+        android:layout_width="78dp"
+        android:layout_height="67dp"
+        android:layout_alignStart="@+id/start"
+        android:layout_alignTop="@+id/top"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-56dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="229dp"
+        android:layout_marginBottom="377dp"
+        app:srcCompat="@drawable/loding"
+        tools:ignore="UnknownId" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="206dp"
+        android:layout_height="35dp"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_alignEnd="@+id/textView3"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-48dp"
+        android:layout_marginEnd="-48dp"
+        android:layout_marginBottom="242dp"
+        android:text="~페이지 로딩중입니다~"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>

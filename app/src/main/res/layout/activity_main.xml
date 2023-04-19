@@ -6,62 +6,100 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn_drive"
-        android:layout_width="242dp"
-        android:layout_height="112dp"
-        android:layout_marginTop="308dp"
-        android:backgroundTint="#252525"
-        android:text="주행시작🚗  >"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.65"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_dash"
-        android:layout_width="242dp"
-        android:layout_height="112dp"
-        android:layout_marginTop="64dp"
-        android:backgroundTint="#252525"
-        android:text="패턴분석📊  >"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.65"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_drive" />
-
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="168dp"
+        android:id="@+id/tv_con"
+        android:layout_width="172dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="8dp"
         android:text="환영합니다"
-        android:textColor="#252525"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_user"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_user"
+        app:layout_constraintTop_toBottomOf="@+id/tv_user" />
+
+    <Button
+        android:id="@+id/btn_driving"
+        android:layout_width="318dp"
+        android:layout_height="113dp"
+        android:layout_marginTop="48dp"
+        android:background="#0CE45B"
+        android:drawableLeft="@drawable/car"
+        android:drawableRight="@drawable/right"
+        android:text="주행시작 "
+        android:textAlignment="center"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.172"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_con" />
+
+    <Button
+        android:id="@+id/btn_patten"
+        android:layout_width="318dp"
+        android:layout_height="113dp"
+        android:layout_marginTop="40dp"
+        android:drawableLeft="@drawable/chart"
+        android:drawableRight="@drawable/right"
+        android:text="패턴분석"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/btn_driving"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btn_driving"
+        app:layout_constraintTop_toBottomOf="@+id/btn_driving" />
+
+    <TextView
+        android:id="@+id/tv_user"
+        android:layout_width="172dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="64dp"
+        android:text="님"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.196"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_name"
+    <Button
+        android:id="@+id/btn_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:text="김철수님"
-        android:textColor="#252525"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        android:layout_marginStart="8dp"
+        android:text="logout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.153"
+        app:layout_constraintHorizontal_bias="0.252"
+        app:layout_constraintStart_toEndOf="@+id/tv_user"
+        app:layout_constraintTop_toTopOf="@+id/tv_user" />
+
+    <ImageView
+        android:id="@+id/img_bell"
+        android:layout_width="32dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/img_setting"
+        app:layout_constraintHorizontal_bias="0.978"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/bell" />
+
+    <ImageView
+        android:id="@+id/img_setting"
+        android:layout_width="32dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.963"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/setting" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
