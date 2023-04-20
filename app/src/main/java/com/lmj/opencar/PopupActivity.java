@@ -3,8 +3,6 @@ package com.lmj.opencar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.AudioManager;
-import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -21,14 +19,12 @@ public class PopupActivity extends AppCompatActivity {
     Button btn_ok;
     TextToSpeech tts;
 
-    ToneGenerator tone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //타이틀바 없애기
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup);
-        tone = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
 
         txtText = findViewById(R.id.txtText);
         btn_ok = findViewById(R.id.btn_ok);
@@ -44,7 +40,6 @@ public class PopupActivity extends AppCompatActivity {
                         Log.e("TTS","지원하지 않는 언어입니다");
                     } else {
                         tts.speak(txtText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "uid");
-                        tone.startTone(ToneGenerator.TONE_DTMF_S, 5000);
                         // btn1.setText("말하는중");
                     }
                 } else {
