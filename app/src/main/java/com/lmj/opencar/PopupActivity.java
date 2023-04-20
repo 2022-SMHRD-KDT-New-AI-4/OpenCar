@@ -44,7 +44,7 @@ public class PopupActivity extends AppCompatActivity {
                     } else {
                         tts.speak(txtText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "uid");
                         // btn1.setText("말하는중");
-                        tone.startTone(ToneGenerator.TONE_DTMF_S, 5000);
+                        tone.startTone(ToneGenerator.TONE_DTMF_S, 4000);
                     }
                 } else {
                     Log.e("TTS","실패");
