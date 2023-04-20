@@ -3,6 +3,8 @@ package com.lmj.opencar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -19,6 +21,7 @@ public class PopupActivity extends AppCompatActivity {
     Button btn_ok;
     TextToSpeech tts;
 
+    ToneGenerator tone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +31,7 @@ public class PopupActivity extends AppCompatActivity {
 
         txtText = findViewById(R.id.txtText);
         btn_ok = findViewById(R.id.btn_ok);
-
+        tone = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
 
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -41,6 +44,7 @@ public class PopupActivity extends AppCompatActivity {
                     } else {
                         tts.speak(txtText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "uid");
                         // btn1.setText("말하는중");
+                        tone.startTone(ToneGenerator.TONE_DTMF_S, 5000);
                     }
                 } else {
                     Log.e("TTS","실패");
