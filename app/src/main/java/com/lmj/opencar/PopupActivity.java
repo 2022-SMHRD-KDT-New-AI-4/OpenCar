@@ -1,11 +1,16 @@
 package com.lmj.opencar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -14,13 +19,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Locale;
+import java.util.Random;
 
 public class PopupActivity extends AppCompatActivity {
 
     TextView txtText;
     Button btn_ok;
     TextToSpeech tts;
-
+    TextView tv_timer;
     ToneGenerator tone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +37,9 @@ public class PopupActivity extends AppCompatActivity {
 
         txtText = findViewById(R.id.txtText);
         btn_ok = findViewById(R.id.btn_ok);
+        tv_timer = findViewById(R.id.tv_timer);
         tone = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
+
 
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -45,6 +53,18 @@ public class PopupActivity extends AppCompatActivity {
                         tts.speak(txtText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "uid");
                         // btn1.setText("말하는중");
                         tone.startTone(ToneGenerator.TONE_DTMF_S, 5000);
+                        // Thread 생성
+                        TimerThread thread = new TimerThread(tv_timer);
+                        // Thread 실행
+                        thread.start();
+
+//                        try {
+//                            thread.join();
+//                        } catch (InterruptedException e) {
+//                            throw new RuntimeException(e);
+//                        }
+
+
                     }
                 } else {
                     Log.e("TTS","실패");
@@ -57,15 +77,6 @@ public class PopupActivity extends AppCompatActivity {
         String data = intent.getStringExtra("data");
         txtText.setText(data);
 
-
-
-//        tts.speak(txtText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "uid");
-//        Log.d("onCreate",txtText.getText().toString());
-
-
-//        CharSequence text = editText.getText();
-//                tts.setPitch((float)1.0);
-//                tts.setSpeechRate((float)1.0);
 
         //확인 버튼 클릭
         btn_ok.setOnClickListener(new View.OnClickListener() {
@@ -86,21 +97,10 @@ public class PopupActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
-
-
-        //데이터 가져오기
-//        Intent intent = getIntent();
-//        String data = intent.getStringExtra("data");
-//        tts.speak(data,TextToSpeech.QUEUE_FLUSH,null,"uid");
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-
 
         Log.d("onstart",txtText.getText().toString());
     }
@@ -133,5 +133,63 @@ public class PopupActivity extends AppCompatActivity {
             tts.shutdown();
             tts = null;
         }
+    }
+
+    Handler timerHandler = new Handler(Looper.getMainLooper()){
+
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+
+            int time = msg.arg1;
+
+            TextView tv = (TextView)msg.obj;
+            tv.setText("("+time + ")");
+        }
+    };
+
+    class TimerThread extends Thread{
+
+        TextView tv;
+
+        public TimerThread(TextView tv){
+            this.tv = tv;
+        }
+
+        @Override
+        public void run() {
+
+            // 10에서 0까지 감소하는 숫자 설정!
+            for (int i = 10; i>=0; i--){
+
+                Message message = new Message();
+
+                message.arg1 = i;
+
+                message.obj = tv;
+
+                timerHandler.sendMessage(message);
+
+                try {
+                    Thread.sleep(1000);
+                    if(i==0){
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://map.kakao.com/link/to/18577297")));
+                    }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+            // 그 숫자를 tv_timer에 반영!
+
+
+        }
+
+
+
+
+
+
+
     }
 }
