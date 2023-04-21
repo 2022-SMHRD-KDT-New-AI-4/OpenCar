@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Locale;
-import java.util.Random;
 
 public class PopupActivity extends AppCompatActivity {
 
@@ -173,7 +172,7 @@ public class PopupActivity extends AppCompatActivity {
                 try {
                     Thread.sleep(1000);
                     if(i==0){
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://map.kakao.com/link/to/18577297")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://map.kakao.com/link/to/2009536799")));
                     }
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
