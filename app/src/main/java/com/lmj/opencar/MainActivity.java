@@ -17,9 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    Button btn_logout,btn_patten,btn_driving;
+    Button btn_logout,btn_driving;
     TextView tv_user;
-    ImageView img_setting,img_bell;
+    ImageView img_setting,img_bell,iv_pattern,iv_start;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +27,11 @@ public class MainActivity extends AppCompatActivity {
 
         tv_user= findViewById(R.id.tv_user);
         btn_logout = findViewById(R.id.btn_logout);
-        btn_patten = findViewById(R.id.btn_patten);
-        btn_driving = findViewById(R.id.btn_driving);
+//        btn_driving = findViewById(R.id.btn_driving);
         img_setting = findViewById(R.id.img_setting);
         img_bell = findViewById(R.id.img_bell);
+        iv_pattern = findViewById(R.id.iv_pattern);
+        iv_start = findViewById(R.id.iv_start);
 
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         String inputText = auto.getString("inputId", "");
@@ -75,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
         // 로그 아웃 버튼 이벤트
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,8 +91,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         // 패턴 분석 버튼 이벤트
-        btn_patten.setOnClickListener(new View.OnClickListener() {
+        iv_pattern.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it_next2 = new Intent(MainActivity.this,PattenActivity.class);
@@ -104,8 +105,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+
         // 주행 시작 버튼 이벤트
-        btn_driving.setOnClickListener(new View.OnClickListener() {
+        iv_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

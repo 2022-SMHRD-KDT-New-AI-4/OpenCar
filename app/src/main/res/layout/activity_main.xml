@@ -20,44 +20,11 @@
         app:layout_constraintStart_toStartOf="@+id/tv_user"
         app:layout_constraintTop_toBottomOf="@+id/tv_user" />
 
-    <Button
-        android:id="@+id/btn_driving"
-        android:layout_width="318dp"
-        android:layout_height="113dp"
-        android:layout_marginTop="48dp"
-        android:background="#0CE45B"
-        android:drawableLeft="@drawable/car"
-        android:drawableRight="@drawable/right"
-        android:text="주행시작 "
-        android:textAlignment="center"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_con" />
-
-    <Button
-        android:id="@+id/btn_patten"
-        android:layout_width="318dp"
-        android:layout_height="113dp"
-        android:layout_marginTop="40dp"
-        android:drawableLeft="@drawable/chart"
-        android:drawableRight="@drawable/right"
-        android:text="패턴분석"
-        android:textAlignment="center"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/btn_driving"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btn_driving"
-        app:layout_constraintTop_toBottomOf="@+id/btn_driving" />
-
     <TextView
         android:id="@+id/tv_user"
         android:layout_width="172dp"
         android:layout_height="48dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="40dp"
         android:text="님"
         android:textAlignment="center"
         android:textSize="34sp"
@@ -101,5 +68,30 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/setting" />
+
+    <ImageView
+        android:id="@+id/iv_pattern"
+        android:layout_width="350dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="156dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_start"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/pattern" />
+
+    <ImageView
+        android:id="@+id/iv_start"
+        android:layout_width="350dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="108dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_con"
+        app:srcCompat="@drawable/startbtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
