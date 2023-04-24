@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="#FDFBFB">
+
+    <TextView
+        android:id="@+id/tv_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/scdream5"
+        android:padding="0dp"
+        android:text="졸음운전이 감지되었습니다"
+        android:textColor="#191717"
+        app:layout_constraintStart_toEndOf="@+id/img_handle"
+        app:layout_constraintTop_toTopOf="@+id/img_handle" />
+
+    <ImageView
+        android:id="@+id/img_handle"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/wheel" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2020.03.21 10:40:00"
+        android:textColor="#979696"
+        android:fontFamily="@font/scdream4"
+        app:layout_constraintBottom_toBottomOf="@+id/img_handle"
+        app:layout_constraintEnd_toEndOf="@+id/tv_msg"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_msg"
+        app:layout_constraintTop_toBottomOf="@+id/tv_msg"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

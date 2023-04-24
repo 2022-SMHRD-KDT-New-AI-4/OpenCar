@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         img_bell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it_bell = new Intent(MainActivity.this,BellActivity.class);
+                Intent it_bell = new Intent(MainActivity.this,AlarmActivity.class);
                 it_bell.putExtra("id",RID);
                 if (RID == null) {
                     it_bell.putExtra("id", RID2);
