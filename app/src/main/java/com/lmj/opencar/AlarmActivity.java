@@ -29,6 +29,7 @@ public class AlarmActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RequestQueue queue;
     StringRequest request_alarm;
+    AlarmAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,69 +38,72 @@ public class AlarmActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
-        // 통로는 한개만 있어두 됨
-//        queue = Volley.newRequestQueue(getApplicationContext());
-//
-//        String url = "http://218.157.24.41:5000/alarm_select/test1";
-//
-//
-//        request_alarm = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//
-//
-//                try {
-//                    JSONObject jo = new JSONObject(response);
-//
-//
-//
-////                    data.add(new AlarmVO(jo.getJSONObject("0").getString("MSG"),jo.getJSONObject("0").getString("send_Time")));
-////                    data.add(new AlarmVO(jo.getString("MSG"),jo.getString("send_Time")));
-//                    Log.d("herehere",response);
-//
-//
-//
-//
-//
-//                } catch (JSONException e) {
-//                    Toast.makeText(getApplicationContext(), "Err onResponseJson: " + e.toString(), Toast.LENGTH_LONG).show();
-//                    Log.d("herehere","Err onResponseJson: " + e.toString());
-//                }
-//
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(AlarmActivity.this, "Err ErrorListener: " + error.toString(), Toast.LENGTH_SHORT).show();
-//
-//            }
-//        }){
-//            @Override //response를 UTF8로 변경해주는 소스코드
-//            protected Response<String> parseNetworkResponse(NetworkResponse response) {
-//                try {
-//                    String utf8String = new String(response.data, "UTF-8");
-//                    return Response.success(utf8String, HttpHeaderParser.parseCacheHeaders(response));
-//                } catch (UnsupportedEncodingException e) {
-//                    // log error
-//                    return Response.error(new ParseError(e));
-//                } catch (Exception e) {
-//                    // log error
-//                    return Response.error(new ParseError(e));
-//                }
-//            }
-//        };
-//
-//
-//        queue.add(request_alarm);
+        //통로는 한개만 있어두 됨
+        queue = Volley.newRequestQueue(getApplicationContext());
 
-        data.add(new AlarmVO("졸음운전 주의시간 입니다.","2020.03.22 11:40:00"));
-        data.add(new AlarmVO("졸음운전이 감지되었습니다.","2020.03.21 10:40:00"));
-        data.add(new AlarmVO("졸음운전 주의시간 입니다.","2020.03.22 11:40:00"));
+        String url = "http://218.157.24.41:5000/alarm_select/test1";
+
+
+        request_alarm = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+
+                try {
+                    JSONObject jo = new JSONObject(response);
+
+                    // 알림목록
+                    for (int i = 0; i<jo.length();i++){
+
+                        data.add(new AlarmVO(jo.getJSONObject(Integer.toString(i)).getString("MSG"),jo.getJSONObject(Integer.toString(i)).getString("send_Time")));
+                    }
+//                    data.add(new AlarmVO(jo.getJSONObject("0").getString("MSG"),jo.getJSONObject("0").getString("send_Time")));
+                    Log.d("herehere",response);
+                    Log.d("hereherelength",jo.length()+"");
 
 
 
-        AlarmAdapter adapter = new AlarmAdapter(data, getApplicationContext());
+
+
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Err onResponseJson: " + e.toString(), Toast.LENGTH_LONG).show();
+                    Log.d("herehere","Err onResponseJson: " + e.toString());
+                }
+                // 초기화
+                adapter.notifyDataSetChanged();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(AlarmActivity.this, "Err ErrorListener: " + error.toString(), Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override //response를 UTF8로 변경해주는 소스코드
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                try {
+                    String utf8String = new String(response.data, "UTF-8");
+                    return Response.success(utf8String, HttpHeaderParser.parseCacheHeaders(response));
+                } catch (UnsupportedEncodingException e) {
+                    // log error
+                    return Response.error(new ParseError(e));
+                } catch (Exception e) {
+                    // log error
+                    return Response.error(new ParseError(e));
+                }
+            }
+        };
+
+
+        queue.add(request_alarm);
+
+//        data.add(new AlarmVO("졸음운전 주의시간 입니다.","2020.03.22 11:40:00"));
+//        data.add(new AlarmVO("졸음운전이 감지되었습니다.","2020.03.21 10:40:00"));
+//        data.add(new AlarmVO("졸음운전 주의시간 입니다.","2020.03.22 11:40:00"));
+
+
+
+        adapter = new AlarmAdapter(data, getApplicationContext());
         recyclerView.setAdapter(adapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
