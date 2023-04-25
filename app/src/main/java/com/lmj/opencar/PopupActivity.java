@@ -15,6 +15,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -33,11 +34,11 @@ public class PopupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //타이틀바 없애기
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup);
 
-        txtText = findViewById(R.id.txtText);
-        btn_ok = findViewById(R.id.btn_ok);
+        txtText = findViewById(R.id.tv_alert);
+        btn_ok = findViewById(R.id.btn_next);
         tv_timer = findViewById(R.id.tv_timer);
         tone = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
 
@@ -145,7 +146,7 @@ public class PopupActivity extends AppCompatActivity {
             int time = msg.arg1;
 
             TextView tv = (TextView)msg.obj;
-            tv.setText("("+time + ")");
+            tv.setText(time+"");
         }
     };
 

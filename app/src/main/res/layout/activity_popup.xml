@@ -1,78 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#eeeeee"
-    android:orientation="vertical"
-    android:layout_width="300dp"
-    android:layout_height="wrap_content">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="320dp"
+    android:layout_height="350dp"
+    android:background="@drawable/alarmtext">
 
-    <!-- 타이틀바 -->
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#4880ED"
+        android:fontFamily="@font/scdream4"
+        android:text="안내시작"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_notice"
-            android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:background="#ff7a00"
-            android:gravity="center"
-            android:text="Notice"
-            android:textColor="#fff"
-            android:textSize="20sp" />
-    </LinearLayout>
-    <!-- //end 타이틀바 -->
-
-    <!-- Notice -->
-    <!-- Notice -->
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_timer"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="24dp">
+        android:layout_marginBottom="64dp"
+        android:fontFamily="@font/scdream8"
+        android:text="10"
+        android:textColor="#0B0B0B"
+        app:layout_constraintBottom_toTopOf="@+id/btn_next"
+        app:layout_constraintEnd_toEndOf="@+id/btn_next"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView2" />
 
-        <TextView
-            android:id="@+id/txtText"
-            android:layout_width="133dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:alpha="0.87"
-            android:gravity="center"
-            android:text="hello"
-            android:textColor="#000"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/tv_timer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="(10)"
-            android:textColor="#000000" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#66bdbdbd" />
-
-    <!-- 닫기 버튼 -->
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_alert"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_marginTop="84dp"
+        android:fontFamily="@font/scdream7"
+        android:text="졸음이 감지되었습니다"
+        android:textColor="#000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/btn_ok"
-            android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:background="#00000000"
-            android:gravity="center"
-            android:onClick="mOnClose"
-            android:padding="16dp"
-            android:text="확인"
-            android:textColor="#ff7a00"
-            android:textSize="15sp" />
-    </LinearLayout>
-    <!--// 닫기 버튼 -->
-</LinearLayout>
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_alert"
+        app:layout_constraintStart_toStartOf="@+id/tv_alert"
+        app:layout_constraintTop_toBottomOf="@+id/tv_alert"
+        app:srcCompat="@drawable/warning" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/scdream8"
+        android:text="⚠경고⚠"
+        android:textColor="#ED1C24"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
