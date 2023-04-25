@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         else if (loginId == null && loginPw == null) {
-            String url = "http://218.157.24.41:5000/login/"+edt_id.getText().toString()+"/"+edt_pw.getText().toString();
+            String url = "http://218.157.24.41:5001/login/"+edt_id.getText().toString()+"/"+edt_pw.getText().toString();
             request_login = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {

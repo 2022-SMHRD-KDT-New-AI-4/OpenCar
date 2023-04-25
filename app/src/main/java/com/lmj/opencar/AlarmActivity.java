@@ -29,6 +29,7 @@ public class AlarmActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RequestQueue queue;
     StringRequest request_alarm;
+
     AlarmAdapter adapter;
 
     @Override
@@ -38,10 +39,10 @@ public class AlarmActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
-        //통로는 한개만 있어두 됨
+        // 통로는 한개만 있어두 됨
         queue = Volley.newRequestQueue(getApplicationContext());
 
-        String url = "http://218.157.24.41:5000/alarm_select/test1";
+        String url = "http://218.157.24.41:5001/alarm_select/test1";
 
 
         request_alarm = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -52,7 +53,8 @@ public class AlarmActivity extends AppCompatActivity {
                 try {
                     JSONObject jo = new JSONObject(response);
 
-                    // 알림목록
+
+                    // 여기서 for문 씁시다 내일 합시다
                     for (int i = 0; i<jo.length();i++){
 
                         data.add(new AlarmVO(jo.getJSONObject(Integer.toString(i)).getString("MSG"),jo.getJSONObject(Integer.toString(i)).getString("send_Time")));
@@ -64,13 +66,13 @@ public class AlarmActivity extends AppCompatActivity {
 
 
 
-
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "Err onResponseJson: " + e.toString(), Toast.LENGTH_LONG).show();
                     Log.d("herehere","Err onResponseJson: " + e.toString());
                 }
-                // 초기화
+
                 adapter.notifyDataSetChanged();
+
             }
         }, new Response.ErrorListener() {
             @Override
