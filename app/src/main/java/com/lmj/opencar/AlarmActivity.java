@@ -31,6 +31,7 @@ public class AlarmActivity extends AppCompatActivity {
     StringRequest request_alarm;
 
     AlarmAdapter adapter;
+    PortClass port;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class AlarmActivity extends AppCompatActivity {
         // 통로는 한개만 있어두 됨
         queue = Volley.newRequestQueue(getApplicationContext());
 
-        String url = "http://218.157.24.41:5001/alarm_select/test1";
+        String url = port.port+"alarm_select/test1";
 
 
         request_alarm = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
