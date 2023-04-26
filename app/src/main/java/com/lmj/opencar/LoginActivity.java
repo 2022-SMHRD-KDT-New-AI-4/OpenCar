@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -35,12 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox ch_auto;
     String loginId,loginPw;
     TextView tv_join;
-
-    StringRequest request_login;
     RequestQueue queue;
-
-
-
+    PortClass port;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,96 +61,72 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
 
         loginId = auto.getString("inputId",null);
         loginPw = auto.getString("inputPw", null);
 
         if (loginId != null && loginPw != null){
-            if (loginId.equals("hi") && loginPw.equals("123") ){
-                Toast.makeText(LoginActivity.this, loginId+"님 자동 로그인", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
+            Toast.makeText(LoginActivity.this, loginId+"님 자동 로그인", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
         }
-
         else if (loginId == null && loginPw == null) {
-            String url = "http://218.157.24.41:5001/login/"+edt_id.getText().toString()+"/"+edt_pw.getText().toString();
-            request_login = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-
-                    try {
-                        JSONObject jo = new JSONObject(response);
-                        // 자동로그인 O
-                        if (ch_auto.isChecked()==true){
-                        SharedPreferences auto = getSharedPreferences("auto",Activity.MODE_PRIVATE);
-                        SharedPreferences.Editor autologin = auto.edit();
-                        loginId = auto.getString("inputId",edt_id.getText().toString());
-                        autologin.putString("inputId",edt_id.getText().toString());
-                        autologin.putString("inputPw",edt_pw.getText().toString());
-                        autologin.commit();
-                        Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                        } else {
-                            loginId = auto.getString("inputId",edt_id.getText().toString());
-                            Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra("id",edt_id.getText().toString());
-                            startActivity(intent);
-                            finish();
-                        }
-
-                    } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), "ID/PW를 다시 확인해주세요", Toast.LENGTH_LONG).show();
-                        Log.d("herehere","Err onResponseJson: " + e.toString());
-                    }
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                }
-            });
-
             btn_login.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
+                    String url = port.port + "login/";/// 3
+                    StringRequest request_login = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {  /// 4
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d("응답", response);
+
+                            if (response != null && ch_auto.isChecked()==true){
+                                SharedPreferences auto = getSharedPreferences("auto",Activity.MODE_PRIVATE);
+                                SharedPreferences.Editor autologin = auto.edit();
+                                loginId = auto.getString("inputId",edt_id.getText().toString());
+                                autologin.putString("inputId",edt_id.getText().toString());
+                                autologin.putString("inputPw",edt_pw.getText().toString());
+                                autologin.commit();
+                                Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+
+                            }else if (response != null && ch_auto.isChecked()==false){
+                                loginId = auto.getString("inputId",edt_id.getText().toString());
+                                Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.putExtra("id",edt_id.getText().toString());
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("error in response","Error :"+error.toString());
+                        }
+                    }){
+                        protected Map<String, String> getParams() throws AuthFailureError{  ///6
+                            Map<String, String> param = new HashMap<>();
+
+                            param.put("User_id",edt_id.getText().toString());
+                            param.put("User_pw",edt_pw.getText().toString());
+                            return param;
+                        }
+                    };
+                    request_login.setRetryPolicy(new com.android.volley.DefaultRetryPolicy(
+                            20000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                     queue.add(request_login);
 
-//                    // 자동로그인 O
-//                    if (edt_id.getText().toString().equals("hi") && edt_pw.getText().toString().equals("123") && ch_auto.isChecked()==true){
-//                        SharedPreferences auto = getSharedPreferences("auto",Activity.MODE_PRIVATE);
-//                        SharedPreferences.Editor autologin = auto.edit();
-//                        loginId = auto.getString("inputId",edt_id.getText().toString());
-//                        autologin.putString("inputId",edt_id.getText().toString());
-//                        autologin.putString("inputPw",edt_pw.getText().toString());
-//                        autologin.commit();
-//                        Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                        startActivity(intent);
-//                        finish();
-//                    }
-//                    // 자동로그인 X
-//                    else if (edt_id.getText().toString().equals("hi") && edt_pw.getText().toString().equals("123")) {
-//                        loginId = auto.getString("inputId",edt_id.getText().toString());
-//                        Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                        intent.putExtra("id",edt_id.getText().toString());
-//                        startActivity(intent);
-//                        finish();
-//                    }
                 }
             });
-
         }
-
 
 
     }
