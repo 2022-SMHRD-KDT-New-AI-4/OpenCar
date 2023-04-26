@@ -16,16 +16,14 @@ public class IntroActivity extends AppCompatActivity {
 
         ImageView img_loding = findViewById(R.id.img_loding);
 
-
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
+                Intent intent = new Intent(IntroActivity.this, Join_MenuActivity.class);
                 startActivity(intent);
                 finish();
             }
-        }, 3000);
+        }, 1000);
 
 
     }
