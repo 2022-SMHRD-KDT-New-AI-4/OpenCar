@@ -153,26 +153,28 @@ public class PattenActivity extends AppCompatActivity {
     // LineChart의 기본적인 것들을 세팅
     private void configureChartAppearance(LineChart lineChart, int range) {
 
-        lineChart.setExtraBottomOffset(15f); // 간격
+//        lineChart.setExtraBottomOffset(15f); // 간격
         lineChart.getDescription().setEnabled(false);
         lineChart.setTouchEnabled(false);// chart 밑에 description 표시 유무
+        lineChart.setExtraOffsets(10f, 0f, 10f, 15f);
 
 
         // Legend는 차트의 범례
         Legend legend = lineChart.getLegend();
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-        legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setFormSize(10);
-        legend.setTextSize(13);
-        legend.setTextColor(Color.parseColor("#A3A3A3"));
-        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
-        legend.setDrawInside(false);
-        legend.setYEntrySpace(5);
-        legend.setWordWrapEnabled(true);
-        legend.setXOffset(80f);
-        legend.setYOffset(20f);
-        legend.getCalculatedLineSizes();
+        legend.setEnabled(false);
+//        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+//        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+//        legend.setForm(Legend.LegendForm.CIRCLE);
+//        legend.setFormSize(10);
+//        legend.setTextSize(10);
+//        legend.setTextColor(Color.parseColor("#A3A3A3"));
+//        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
+//        legend.setDrawInside(false);
+//        legend.setYEntrySpace(5);
+//        legend.setWordWrapEnabled(false);
+//        legend.setXOffset(80f);
+//        legend.setYOffset(20f);
+//        legend.getCalculatedLineSizes();
 
         // XAxis (아래쪽) - 선 유무, 사이즈, 색상, 축 위치 설정
         XAxis xAxis = lineChart.getXAxis();
@@ -187,15 +189,16 @@ public class PattenActivity extends AppCompatActivity {
 
         // YAxis(Right) (왼쪽) - 선 유무, 데이터 최솟값/최댓값, 색상
         YAxis yAxisLeft = lineChart.getAxisLeft();
-        yAxisLeft.setTextSize(14f);
-        yAxisLeft.setTextColor(Color.rgb(163, 163, 163));
+//        yAxisLeft.setTextSize(14f);
+        yAxisLeft.setEnabled(false);
+//        yAxisLeft.setTextColor(Color.rgb(163, 163, 163));
         yAxisLeft.setDrawAxisLine(false);
         yAxisLeft.setAxisLineWidth(2);
         yAxisLeft.setAxisMinimum(0f); // 최솟값
 //        yAxisLeft.setAxisMaximum((float) RANGE[0][range]); // 최댓값
 //        yAxisLeft.setGranularity((float) RANGE[1][range]);
 //        yAxisLeft.setAxisMaximum((float) 5); // 최댓값
-        yAxisLeft.setGranularity((float) 5);
+//        yAxisLeft.setGranularity((float) 5);
 
         // YAxis(Left) (오른쪽) - 선 유무, 데이터 최솟값/최댓값, 색상
         YAxis yAxis = lineChart.getAxisRight();
@@ -213,10 +216,10 @@ public class PattenActivity extends AppCompatActivity {
         // XAxis에 원하는 String 설정하기 (날짜)
         xAxis.setValueFormatter(new ValueFormatter() {
 
-//            @Override
-//            public String getFormattedValue(float value) {
-//                return LABEL[range][(int) value];
-//            }
+            @Override
+            public String getFormattedValue(float value) {
+                return Integer.toString((int) value+1);
+            }
         });
     }
 
@@ -226,7 +229,6 @@ public class PattenActivity extends AppCompatActivity {
     //따라서, BarChart에 보여질 데이터에는 4의 BarDataSet이 있다.
     private LineData createChartData(int range) {
         ArrayList<Entry> entry1 = new ArrayList<>(); // 앱1
-//        ArrayList<Entry> entry2 = new ArrayList<>(); // 앱2
 
 
         LineData chartData = new LineData();
@@ -236,9 +238,7 @@ public class PattenActivity extends AppCompatActivity {
         for (int i = 1; i < 24; i++) {
 
             int val1 = rd.nextInt(4); // 졸음 빈도수 값
-//            float val2 = (float) (2); // 앱2 값
             entry1.add(new Entry(i, val1));
-//            entry2.add(new Entry(i, val2));
 
         }
 
@@ -330,12 +330,10 @@ public class PattenActivity extends AppCompatActivity {
 
         BarDataSet barDataSet = new BarDataSet(values, "check");
         barDataSet.setDrawIcons(false);
-        barDataSet.setDrawValues(true);
+        barDataSet.setDrawValues(false);
         barDataSet.setColor(Color.parseColor("#4D95F7"));
-        barDataSet.setValueTextColor(Color.rgb(163, 163, 163));
-        barDataSet.setValueTextSize(10f);
-
-
+//        barDataSet.setValueTextColor(Color.rgb(163, 163, 163));
+//        barDataSet.setValueTextSize(10f);
 
 
         BarData barData = new BarData(barDataSet);
@@ -349,8 +347,4 @@ public class PattenActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
 }
