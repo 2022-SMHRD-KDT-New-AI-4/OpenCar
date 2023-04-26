@@ -17,18 +17,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    Button btn_logout,btn_driving;
+    Button btn_logout;
     TextView tv_user;
-    ImageView img_setting,img_bell,iv_pattern,iv_start;
+    ImageView img_logout,img_bell,iv_pattern,iv_start;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         tv_user= findViewById(R.id.tv_user);
-        btn_logout = findViewById(R.id.btn_logout);
 //        btn_driving = findViewById(R.id.btn_driving);
-        img_setting = findViewById(R.id.img_setting);
+        img_logout = findViewById(R.id.img_logout);
         img_bell = findViewById(R.id.img_bell);
         iv_pattern = findViewById(R.id.iv_pattern);
         iv_start = findViewById(R.id.iv_start);
@@ -49,15 +48,19 @@ public class MainActivity extends AppCompatActivity {
         final String RID = nid;
         final String RID2 = inputText;
 
-        img_setting.setOnClickListener(new View.OnClickListener() {
+
+        // 로그 아웃 버튼 이벤트
+        img_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it_setting = new Intent(MainActivity.this,SettingActivity.class);
-                it_setting.putExtra("id",RID);
-                if (RID == null) {
-                    it_setting.putExtra("id", RID2);
-                }
-                launcher.launch(it_setting);
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+                SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = auto.edit();
+                editor.clear();
+                editor.commit();
+                Toast.makeText(MainActivity.this, "로그아웃", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 
@@ -75,21 +78,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-        // 로그 아웃 버튼 이벤트
-        btn_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
-                SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
-                SharedPreferences.Editor editor = auto.edit();
-                editor.clear();
-                editor.commit();
-                Toast.makeText(MainActivity.this, "로그아웃", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
 
 
         // 패턴 분석 버튼 이벤트

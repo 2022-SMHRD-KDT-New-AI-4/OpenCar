@@ -13,24 +13,11 @@
         android:layout_marginBottom="28dp"
         android:backgroundTint="#4880ED"
         android:fontFamily="@font/scdream4"
-        android:text="안내시작"
+        android:text="안내시작  10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:fontFamily="@font/scdream8"
-        android:text="10"
-        android:textColor="#0B0B0B"
-        app:layout_constraintBottom_toTopOf="@+id/btn_next"
-        app:layout_constraintEnd_toEndOf="@+id/btn_next"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView2" />
 
     <TextView
         android:id="@+id/tv_alert"

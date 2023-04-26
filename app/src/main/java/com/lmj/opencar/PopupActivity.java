@@ -28,7 +28,6 @@ public class PopupActivity extends AppCompatActivity {
     TextView txtText;
     Button btn_ok;
     TextToSpeech tts;
-    TextView tv_timer;
     ToneGenerator tone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,6 @@ public class PopupActivity extends AppCompatActivity {
 
         txtText = findViewById(R.id.tv_alert);
         btn_ok = findViewById(R.id.btn_next);
-        tv_timer = findViewById(R.id.tv_timer);
         tone = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
 
 
@@ -56,7 +54,7 @@ public class PopupActivity extends AppCompatActivity {
                         // btn1.setText("말하는중");
                         tone.startTone(ToneGenerator.TONE_DTMF_S, 5000);
                         // Thread 생성
-                        TimerThread thread = new TimerThread(tv_timer);
+                        TimerThread thread = new TimerThread(btn_ok);
                         // Thread 실행
                         thread.start();
 
@@ -145,16 +143,16 @@ public class PopupActivity extends AppCompatActivity {
 
             int time = msg.arg1;
 
-            TextView tv = (TextView)msg.obj;
-            tv.setText(time+"");
+            Button tv = (Button)msg.obj;
+            tv.setText("안내시작  "+time);
         }
     };
 
     class TimerThread extends Thread{
 
-        TextView tv;
+        Button tv;
 
-        public TimerThread(TextView tv){
+        public TimerThread(Button tv){
             this.tv = tv;
         }
 
