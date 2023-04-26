@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -18,133 +19,338 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class PattenActivity extends AppCompatActivity {
-    TextView tv_title;
-    HorizontalBarChart horizontalbarchart;
+    HorizontalBarChart barChart;
     LineChart linechart;
-    BarChart barchart;
+    BarChart barchart2;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patten);
-
-        tv_title = findViewById(R.id.tv_title);
-        horizontalbarchart = findViewById(R.id.horizontalbarChart);
-        linechart = findViewById(R.id.linechart);
-        barchart = findViewById(R.id.barchart);
-
-        Intent getintent = getIntent();
-        String id = getintent.getStringExtra("id");
-
-        tv_title.setText(id + "님의 졸음운전 패턴");
-
-        // 1. 수평 막대 그래프
-        horizontalbarchart.setDrawBarShadow(false);
-        horizontalbarchart.setDrawValueAboveBar(true);
-        horizontalbarchart.getDescription().setEnabled(false);
-        horizontalbarchart.setPinchZoom(false);
-        horizontalbarchart.setDrawGridBackground(true);
-
-        XAxis xl = horizontalbarchart.getXAxis();
-        xl.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xl.setDrawAxisLine(true);
-        xl.setDrawGridLines(false);
-
-        YAxis yl = horizontalbarchart.getAxisLeft();
-        yl.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-        yl.setDrawGridLines(false);
-        yl.setEnabled(false);
-        yl.setAxisMinimum(0f);
-
-        YAxis yr = horizontalbarchart.getAxisRight();
-        yr.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-        yr.setDrawGridLines(false);
-        yr.setAxisMinimum(0f);
-
-        // 막대 값
-        ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
-        for (int i = 0; i < 6; i++) {
-            yVals1.add(new BarEntry(i, (i+1)*10));
-        }
-
-        BarDataSet set1;
-        set1 = new BarDataSet(yVals1, "DataSet 1");
-        ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
-        set1.setColors(ColorTemplate.MATERIAL_COLORS);
-        dataSets.add(set1);
-        BarData data = new BarData(dataSets);
-        data.setValueTextSize(10f);
-        data.setBarWidth(.9f);
-        horizontalbarchart.setData(data);
-        horizontalbarchart.getLegend().setEnabled(false);
+        barChart = findViewById(R.id.chart2);
+        linechart = findViewById(R.id.chart);
+        barchart2 = findViewById(R.id.barchart);
 
 
-        // 2. 꺾은선형 그래프
-        ArrayList<Entry> entry_chart1 = new ArrayList<>(); //데이터를 담을 Arraylist
-        ArrayList<Entry> entry_chart2 = new ArrayList<>();
+        // HorizontalBarChart 전체 졸음빈도수
+        configureChartAppearance();
+        prepareChartData(createChartData());
 
-        LineData chartData = new LineData(); // 차트에 담길 데이터
+        // LineChart 졸음시간대(6개월)
+        configureChartAppearance(linechart,4);
+        prepareChartData(createChartData(4),linechart);
 
-        entry_chart1.add(new Entry(1,1));
-        entry_chart1.add(new Entry(2,2));
-        entry_chart1.add(new Entry(3,3));
-        entry_chart1.add(new Entry(4,4));
-        entry_chart1.add(new Entry(5,2));
-        entry_chart1.add(new Entry(6,8));
+        // BarChart 월별 졸음빈도수
+        makeBarChart();
 
-        entry_chart2.add(new Entry(1,2));
-        entry_chart2.add(new Entry(2,3));
-        entry_chart2.add(new Entry(3,1));
-        entry_chart2.add(new Entry(4,4));
-        entry_chart2.add(new Entry(5,5));
-        entry_chart2.add(new Entry(6,7));
-
-        LineDataSet lineDataSet1 = new LineDataSet(entry_chart1,"LineGraph1");
-        LineDataSet lineDataSet2 = new LineDataSet(entry_chart2,"LineGraph2");
-
-        lineDataSet1.setColors(Color.RED);
-        lineDataSet2.setColors(Color.BLACK);
-
-        chartData.addDataSet(lineDataSet1);
-        chartData.addDataSet(lineDataSet2);
-
-        linechart.setData(chartData);
-
-        linechart.invalidate(); // 차트 업데이트
-        linechart.setTouchEnabled(false); // 차트 터치 disable
-
-
-        // 3.막대 그래프 샘플 데이터
-        ArrayList<BarEntry> visitors = new ArrayList<>();
-        visitors.add(new BarEntry(1, 420));
-        visitors.add(new BarEntry(2, 450));
-        visitors.add(new BarEntry(3, 520));
-        visitors.add(new BarEntry(4, 620));
-        visitors.add(new BarEntry(5, 540));
-        visitors.add(new BarEntry(6, 720));
-        visitors.add(new BarEntry(7, 920));
-        visitors.add(new BarEntry(8, 540));
-        visitors.add(new BarEntry(9, 720));
-        visitors.add(new BarEntry(10, 920));
-
-        BarDataSet barDataSet = new BarDataSet(visitors, "Visitors");
-        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        barDataSet.setValueTextColor(Color.BLACK);
-        barDataSet.setValueTextSize(16f);
-
-        BarData barData = new BarData(barDataSet);
-
-
-        barchart.setFitBars(true);
-        barchart.setData(barData);
-        barchart.getDescription().setText("Bar Chart Example");
-        barchart.animateY(2000);
 
 
     }
+
+
+    // *** HorizontalBarChart --> 전체 졸음빈도수
+    // BarChart의 기본적인 것들을 세팅
+    private void configureChartAppearance() {
+
+        barChart.getDescription().setEnabled(false); // chart 밑에 description 표시 유무
+        barChart.setTouchEnabled(false); // 터치 유무
+        barChart.getLegend().setEnabled(false); // Legend는 차트의 범례
+        barChart.setExtraOffsets(10f, 0f, 40f, 0f);
+
+        // XAxis (수평 막대 기준 왼쪽) - 선 유무, 사이즈, 색상, 축 위치 설정
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setDrawAxisLine(false);
+        xAxis.setGranularity(1f);
+        xAxis.setTextSize(15f);
+        xAxis.setGridLineWidth(25f);
+        xAxis.setGridColor(Color.parseColor("#FFFFFF"));
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // X 축 데이터 표시 위치
+
+
+        // YAxis(Left) (수평 막대 기준 아래쪽) - 선 유무, 데이터 최솟값/최댓값, label 유무
+        YAxis axisLeft = barChart.getAxisLeft();
+        axisLeft.setDrawGridLines(false);
+        axisLeft.setDrawAxisLine(false);
+        axisLeft.setAxisMinimum(0f); // 최솟값
+        axisLeft.setAxisMaximum(50f); // 최댓값
+        axisLeft.setGranularity(1f); // 값만큼 라인선 설정
+        axisLeft.setDrawLabels(false); // label 삭제
+
+        // YAxis(Right) (수평 막대 기준 위쪽) - 사이즈, 선 유무
+        YAxis axisRight = barChart.getAxisRight();
+        axisRight.setTextSize(15f);
+        axisRight.setDrawLabels(false); // label 삭제
+        axisRight.setDrawGridLines(false);
+        axisRight.setDrawAxisLine(false);
+
+        String[] name = {"전체","나"};
+
+        // XAxis에 원하는 String 설정하기 (앱 이름)
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return name[(int) value];
+            }
+        });
+
+    }
+
+
+    // BarChart에 표시될 데이터를 생성
+    private BarData createChartData() {
+
+        // 1. [BarEntry] BarChart에 표시될 데이터 값 생성
+        ArrayList<BarEntry> values = new ArrayList<>();
+        for (int i = 0; i < 2; i++) { // 데이터 개수
+            float x = i;
+            float y = 10+i;
+            values.add(new BarEntry(x, y));
+        }
+
+        // 2. [BarDataSet] 단순 데이터를 막대 모양으로 표시, BarChart의 막대 커스텀
+        BarDataSet set2 = new BarDataSet(values, "values");
+        set2.setDrawIcons(false);
+        set2.setDrawValues(true);
+        set2.setColors(Color.parseColor("#D0DFFC"),Color.parseColor("#4D95F7")); // 색상 설정
+
+
+
+        // 데이터 값 원하는 String 포맷으로 설정하기 (ex. ~회)
+        set2.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return (String.valueOf((int) value)) + "번";
+            }
+        });
+
+        // 3. [BarData] 보여질 데이터 구성
+        BarData data = new BarData(set2);
+        data.setBarWidth(0.5f);
+        data.setValueTextSize(15);
+
+        return data;
+    }
+
+
+    // 위의 생성된 BarData를 실제 BarChart 객체에 전달하고 BarChart를 갱신해 데이터를 표시한다.
+    private void prepareChartData(BarData data) {
+        barChart.setData(data); // BarData 전달
+        barChart.invalidate(); // BarChart 갱신해 데이터 표시
+        barChart.animateY(2000);
+    }
+
+
+    // *** LineChart 졸음시간대(6개월)
+    // LineChart의 기본적인 것들을 세팅
+    private void configureChartAppearance(LineChart lineChart, int range) {
+
+        lineChart.setExtraBottomOffset(15f); // 간격
+        lineChart.getDescription().setEnabled(false);
+        lineChart.setTouchEnabled(false);// chart 밑에 description 표시 유무
+
+
+        // Legend는 차트의 범례
+        Legend legend = lineChart.getLegend();
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setFormSize(10);
+        legend.setTextSize(13);
+        legend.setTextColor(Color.parseColor("#A3A3A3"));
+        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
+        legend.setDrawInside(false);
+        legend.setYEntrySpace(5);
+        legend.setWordWrapEnabled(true);
+        legend.setXOffset(80f);
+        legend.setYOffset(20f);
+        legend.getCalculatedLineSizes();
+
+        // XAxis (아래쪽) - 선 유무, 사이즈, 색상, 축 위치 설정
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setDrawAxisLine(false);
+        xAxis.setDrawGridLines(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // x축 데이터 표시 위치
+        xAxis.setGranularity(1f);
+        xAxis.setTextSize(14f);
+        xAxis.setTextColor(Color.rgb(118, 118, 118));
+        xAxis.setSpaceMin(0.5f); // Chart 맨 왼쪽 간격 띄우기
+        xAxis.setSpaceMax(0.5f); // Chart 맨 오른쪽 간격 띄우기
+
+        // YAxis(Right) (왼쪽) - 선 유무, 데이터 최솟값/최댓값, 색상
+        YAxis yAxisLeft = lineChart.getAxisLeft();
+        yAxisLeft.setTextSize(14f);
+        yAxisLeft.setTextColor(Color.rgb(163, 163, 163));
+        yAxisLeft.setDrawAxisLine(false);
+        yAxisLeft.setAxisLineWidth(2);
+        yAxisLeft.setAxisMinimum(0f); // 최솟값
+//        yAxisLeft.setAxisMaximum((float) RANGE[0][range]); // 최댓값
+//        yAxisLeft.setGranularity((float) RANGE[1][range]);
+//        yAxisLeft.setAxisMaximum((float) 5); // 최댓값
+        yAxisLeft.setGranularity((float) 5);
+
+        // YAxis(Left) (오른쪽) - 선 유무, 데이터 최솟값/최댓값, 색상
+        YAxis yAxis = lineChart.getAxisRight();
+        yAxis.setDrawLabels(false); // label 삭제
+        yAxis.setTextColor(Color.rgb(163, 163, 163));
+        yAxis.setDrawAxisLine(false);
+        yAxis.setAxisLineWidth(2);
+        yAxis.setAxisMinimum(0f); // 최솟값
+//        yAxis.setAxisMaximum((float) RANGE[0][range]); // 최댓값
+//        yAxis.setGranularity((float) RANGE[1][range]);
+//        yAxis.setAxisMaximum((float) 5); // 최댓값
+        yAxis.setGranularity((float) 5);
+
+
+        // XAxis에 원하는 String 설정하기 (날짜)
+        xAxis.setValueFormatter(new ValueFormatter() {
+
+//            @Override
+//            public String getFormattedValue(float value) {
+//                return LABEL[range][(int) value];
+//            }
+        });
+    }
+
+
+
+    //HorizontalBarChart와 마찬가지로 LineChart에 표시될 데이터를 생성한다. 다른 점은 DataSet이 하나가 아닌 4개이다.
+    //따라서, BarChart에 보여질 데이터에는 4의 BarDataSet이 있다.
+    private LineData createChartData(int range) {
+        ArrayList<Entry> entry1 = new ArrayList<>(); // 앱1
+//        ArrayList<Entry> entry2 = new ArrayList<>(); // 앱2
+
+
+        LineData chartData = new LineData();
+        Random rd = new Random();
+
+        // 랜덤 데이터 추출
+        for (int i = 1; i < 24; i++) {
+
+            int val1 = rd.nextInt(4); // 졸음 빈도수 값
+//            float val2 = (float) (2); // 앱2 값
+            entry1.add(new Entry(i, val1));
+//            entry2.add(new Entry(i, val2));
+
+        }
+
+        // 4개 앱의 DataSet 추가 및 선 커스텀
+
+        // 앱1
+        LineDataSet lineDataSet1 = new LineDataSet(entry1, "hello");
+        chartData.addDataSet(lineDataSet1);
+
+        lineDataSet1.setLineWidth(3);
+//        lineDataSet1.setCircleRadius(6);
+        lineDataSet1.setDrawValues(false);
+        lineDataSet1.setDrawCircleHole(false);
+        lineDataSet1.setDrawCircles(false);
+        lineDataSet1.setDrawHorizontalHighlightIndicator(false);
+        lineDataSet1.setDrawHighlightIndicators(false);
+        lineDataSet1.setColor(Color.rgb(31, 120, 180));
+        lineDataSet1.setCircleColor(Color.rgb(31, 120, 180));
+
+
+
+
+        chartData.setValueTextSize(15);
+        return chartData;
+    }
+
+    // 생성된 BarData를 실제 BarChart 객체에 전달하고 BarChart를 갱신해 데이터를 표시
+    private void prepareChartData(LineData data, LineChart lineChart) {
+        lineChart.setData(data); // LineData 전달
+        lineChart.invalidate(); // LineChart 갱신해 데이터 표시
+//        lineChart.animateY(3000);
+        lineChart.animateX(3000);
+    }
+
+
+
+    // barChart 졸음빈도수
+    private void makeBarChart(){
+        barchart2.getDescription().setEnabled(false); // chart 밑에 description 표시 유무
+        barchart2.setTouchEnabled(false); // 터치 유무
+        barchart2.getLegend().setEnabled(false); // Legend는 차트의 범례
+        barchart2.setExtraOffsets(25f, 0f, 40f, 20f);
+
+        // XAxis (수평 막대 기준 왼쪽) - 선 유무, 사이즈, 색상, 축 위치 설정
+        XAxis xAxis = barchart2.getXAxis();
+        xAxis.setDrawAxisLine(false);
+        xAxis.setGranularity(1f);
+        xAxis.setTextSize(15f);
+        xAxis.setGridLineWidth(25f);
+        xAxis.setGridColor(Color.parseColor("#FFFFFF"));
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // X 축 데이터 표시 위치
+
+        // YAxis(Left) (수평 막대 기준 아래쪽) - 선 유무, 데이터 최솟값/최댓값, label 유무
+        YAxis axisLeft = barchart2.getAxisLeft();
+        axisLeft.setDrawGridLines(false);
+        axisLeft.setDrawAxisLine(false);
+        axisLeft.setAxisMinimum(0f); // 최솟값
+//        axisLeft.setAxisMaximum(10f); // 최댓값
+        axisLeft.setGranularity(1f); // 값만큼 라인선 설정
+        axisLeft.setDrawLabels(false); // label 삭제
+
+        // YAxis(Right) (수평 막대 기준 위쪽) - 사이즈, 선 유무
+        YAxis axisRight = barchart2.getAxisRight();
+        axisRight.setTextSize(15f);
+        axisRight.setDrawLabels(false); // label 삭제
+        axisRight.setDrawGridLines(false);
+        axisRight.setDrawAxisLine(false);
+
+        String[] months = {"12월","1월","2월","3월","4월","5월"};
+        // XAxis에 원하는 String 설정하기 (날짜)
+        xAxis.setValueFormatter(new ValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value) {
+                return months[(int)value];
+            }
+        });
+
+        Random rd = new Random();
+        // 1. [BarEntry] BarChart에 표시될 데이터 값 생성
+        ArrayList<BarEntry> values = new ArrayList<>();
+        for (int i =0; i < 6; i++) { // 데이터 개수
+            int x = i;
+            int y = rd.nextInt(5);
+
+            values.add(new BarEntry(x, y));
+        }
+
+
+        BarDataSet barDataSet = new BarDataSet(values, "check");
+        barDataSet.setDrawIcons(false);
+        barDataSet.setDrawValues(true);
+        barDataSet.setColor(Color.parseColor("#4D95F7"));
+        barDataSet.setValueTextColor(Color.rgb(163, 163, 163));
+        barDataSet.setValueTextSize(10f);
+
+
+
+
+        BarData barData = new BarData(barDataSet);
+        barData.setBarWidth(0.6f);
+
+//        barchart2.setFitBars(true);
+        barchart2.setData(barData);
+        barchart2.invalidate();
+//        barchart2.getDescription().setText("Bar Chart Example");
+        barchart2.animateY(2000);
+
+
+    }
+
+
+
+
 }
