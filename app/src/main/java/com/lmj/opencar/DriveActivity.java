@@ -59,7 +59,7 @@ public class DriveActivity extends AppCompatActivity {
                     protected Map<String, String> getParams() throws AuthFailureError{
                         Map<String, String> param = new HashMap<>();
 
-                        param.put("User_id", dr_seq);
+                        param.put("dr_seq", dr_seq);
                         return param;
                     }
                 };
