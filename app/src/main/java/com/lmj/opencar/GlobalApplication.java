@@ -13,7 +13,7 @@ public class GlobalApplication extends Application {
     public void onCreate(){
         super.onCreate();
         instance = this;
-        Log.d("Test",Join_MenuActivity.APP_KEY);
-        KakaoSdk.init(this,Join_MenuActivity.APP_KEY);
+        Log.d("Test",LoginActivity.APP_KEY);
+        KakaoSdk.init(this,LoginActivity.APP_KEY);
     }
 }
