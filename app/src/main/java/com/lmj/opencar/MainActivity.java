@@ -103,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
         iv_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, DriveActivity.class);
+                intent.putExtra("id",inputText);
+                startActivity(intent);
+                finish();
 
             }
         });
