@@ -7,9 +7,11 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,9 +19,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.kakao.sdk.user.UserApiClient;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
+    RequestQueue queue;
+    PortClass port;
     Button btn_logout;
     TextView tv_user;
     ImageView img_logout,img_bell,iv_pattern,iv_start;
@@ -29,11 +50,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tv_user= findViewById(R.id.tv_user);
-//        btn_driving = findViewById(R.id.btn_driving);
         img_logout = findViewById(R.id.img_logout);
         img_bell = findViewById(R.id.img_bell);
         iv_pattern = findViewById(R.id.iv_pattern);
         iv_start = findViewById(R.id.iv_start);
+
+        queue = Volley.newRequestQueue(getApplicationContext());
 
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         String inputText = auto.getString("inputId", "");
@@ -81,8 +103,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
         // 패턴 분석 버튼 이벤트
         iv_pattern.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,17 +116,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         // 주행 시작 버튼 이벤트
         iv_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, DriveActivity.class);
-                intent.putExtra("id",inputText);
-                startActivity(intent);
-                finish();
+                String url = port.port + "drive_insert/"+inputText;
+                StringRequest request_start = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                            Log.d("응답",response);
+                            Intent it_start = new Intent(MainActivity.this, DriveActivity.class);
+                            it_start.putExtra("id",inputText);
+                            it_start.putExtra("dr_seq",response);
+                            startActivity(it_start);
+                            finish();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("error in response", "Error :"+ error.toString());
+                    }
+                }){
+                    protected Map<String, String> getParams() throws AuthFailureError{
+                        Map<String, String> param = new HashMap<>();
+
+                        param.put("User_id",inputText);
+                        return param;
+                    }
+                };
+                    request_start.setRetryPolicy(new com.android.volley.DefaultRetryPolicy(
+                        20000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                    queue.add(request_start);
 
             }
         });
