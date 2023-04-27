@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
         tv_join.setPaintFlags(tv_join.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        // 통로는 한개만 있어두 됨 ㅅㄷ
+        // 통로는 한개만 있어두 됨 ㅅㄷㄴㅅ
         queue = Volley.newRequestQueue(getApplicationContext());
 
         // 회원가입 페이지로 이동
