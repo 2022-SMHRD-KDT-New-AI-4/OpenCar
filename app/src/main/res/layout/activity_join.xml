@@ -8,11 +8,12 @@
 
     <EditText
         android:id="@+id/edt_pw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
         android:ems="10"
-        android:hint="PW"
+        android:hint="  비밀번호"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/edt_id"
         app:layout_constraintHorizontal_bias="1.0"
@@ -21,11 +22,12 @@
 
     <EditText
         android:id="@+id/edt_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/border"
         android:ems="10"
-        android:hint="ID"
+        android:hint="  아이디"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/tv_login"
         app:layout_constraintHorizontal_bias="0.49"
@@ -34,21 +36,23 @@
 
     <Button
         android:id="@+id/btn_join"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="148dp"
         android:backgroundTint="#03A9F4"
-        android:text="join"
+        android:text="회원가입"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/edt_bir"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/edt_bir"
+        app:layout_constraintTop_toBottomOf="@+id/rb_woman"
+        app:layout_constraintVertical_bias="0.168" />
 
     <TextView
         android:id="@+id/tv_login"
         android:layout_width="175dp"
         android:layout_height="47dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="135dp"
         android:text="회원가입"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -61,11 +65,12 @@
 
     <EditText
         android:id="@+id/edt_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
         android:ems="10"
-        android:hint="Name"
+        android:hint="  이름"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/edt_pw"
         app:layout_constraintHorizontal_bias="0.0"
@@ -74,11 +79,12 @@
 
     <EditText
         android:id="@+id/edt_bir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
         android:ems="10"
-        android:hint="birth day"
+        android:hint="  생일"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/edt_name"
         app:layout_constraintHorizontal_bias="1.0"

@@ -7,14 +7,40 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="150dp"
+        android:layout_height="2px"
+        android:background="#D0DFFC"
+        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="150dp"
+        android:layout_height="2px"
+        android:background="#D0DFFC"
+        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView8" />
+
     <EditText
         android:id="@+id/edt_pw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:layout_marginTop="4dp"
+        android:background="@drawable/border"
+
         android:ems="10"
-        android:hint="PW"
+        android:hint="  비밀번호"
         android:inputType="textPassword"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/edt_id"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/edt_id"
@@ -22,58 +48,59 @@
 
     <EditText
         android:id="@+id/edt_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+
+        android:background="@drawable/border"
         android:ems="10"
-        android:hint="ID"
+        android:hint="  아이디"
         android:inputType="textPersonName"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/tv_login"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="@+id/tv_login"
         app:layout_constraintTop_toBottomOf="@+id/tv_login" />
 
     <CheckBox
         android:id="@+id/ch_auto"
-        android:layout_width="101dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="자동로그인"
         app:layout_constraintStart_toStartOf="@+id/edt_pw"
         app:layout_constraintTop_toBottomOf="@+id/edt_pw" />
 
     <Button
         android:id="@+id/btn_join"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:backgroundTint="#03A9F4"
         android:text="login"
-        app:layout_constraintEnd_toEndOf="@+id/tv_join"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="@+id/ch_auto"
+        app:layout_constraintEnd_toEndOf="@+id/edt_pw"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/edt_pw"
         app:layout_constraintTop_toBottomOf="@+id/ch_auto" />
 
     <TextView
         android:id="@+id/tv_join"
         android:layout_width="105dp"
         android:layout_height="28dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="15dp"
         android:text="회원가입"
         android:textAlignment="center"
         android:textColor="#03A9F4"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/edt_pw"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="@+id/btn_join"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/ch_auto"
-        app:layout_constraintTop_toBottomOf="@+id/edt_pw" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_join" />
 
     <TextView
         android:id="@+id/tv_login"
         android:layout_width="104dp"
         android:layout_height="50dp"
-        android:layout_marginTop="188dp"
+        android:layout_marginTop="132dp"
         android:text="로그인"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -89,12 +116,36 @@
         android:id="@+id/img_kakao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="132dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:srcCompat="@drawable/kakao_login_medium_narrow" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="또는"
+        android:textColor="#D0DFFC"
+        app:layout_constraintBottom_toTopOf="@+id/img_kakao"
         app:layout_constraintEnd_toEndOf="@+id/btn_join"
-        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="@+id/btn_join"
         app:layout_constraintTop_toBottomOf="@+id/btn_join"
-        app:layout_constraintVertical_bias="0.053"
-        app:srcCompat="@drawable/kakao_login_medium_narrow" />
+        app:layout_constraintVertical_bias="0.512" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="아직 계정이 없으신가요?"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_join"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="@+id/btn_join"
+        app:layout_constraintTop_toBottomOf="@+id/btn_join" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
