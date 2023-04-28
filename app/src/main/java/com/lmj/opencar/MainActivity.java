@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -18,23 +19,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    RequestQueue queue;
+    public static RequestQueue queue;
     PortClass port;
-    Button btn_logout;
+    String id;
     TextView tv_user;
     ImageView img_logout,img_bell,iv_pattern,iv_start;
+    StringRequest request_start;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         String inputText = auto.getString("inputId", "");
+
 
         tv_user.setText(inputText + "님");
 
@@ -89,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 if (RID == null) {
                     it_bell.putExtra("id", RID2);
                 }
-                launcher.launch(it_bell);
+                    launcher.launch(it_bell);
             }
         });
 
@@ -111,37 +118,52 @@ public class MainActivity extends AppCompatActivity {
         iv_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = port.port + "drive_insert/"+inputText;
-                StringRequest request_start = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                if (inputText != null){
+                    id = inputText;
+                } else if (nid != null) {
+                    id = nid;
+                }
+
+                String url = port.port+"drive_insert/"+id+"/";
+
+                 request_start = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+
                     @Override
                     public void onResponse(String response) {
-                            Log.d("응답",response);
+                        try {
+                            JSONObject jo = new JSONObject(response);
+                            Integer data=jo.getInt("dr_seq");
                             Intent it_start = new Intent(MainActivity.this, DriveActivity.class);
-                            it_start.putExtra("id",inputText);
-                            it_start.putExtra("dr_seq",response);
+                            it_start.putExtra("data",data);
+                            it_start.putExtra("dr_seq", response);
                             startActivity(it_start);
                             finish();
+                            Log.d("응답","data");
+                            Log.d("응답",response);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("error in response", "Error :"+ error.toString());
+                        Log.e("error in response", "Error :"+ error.getMessage());
                     }
                 }){
                     protected Map<String, String> getParams() throws AuthFailureError{
                         Map<String, String> param = new HashMap<>();
 
-                        param.put("User_id",inputText);
+                        param.put("Used_id",id);
+
                         return param;
                     }
                 };
-                    request_start.setRetryPolicy(new com.android.volley.DefaultRetryPolicy(
-                        20000,
-                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                    queue.add(request_start);
-
+                 request_start.setShouldCache(false);
+                 queue.add(request_start);
             }
+
         });
 
     }
