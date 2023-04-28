@@ -45,9 +45,9 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
+                android:fontFamily="@font/scdream5"
                 android:paddingBottom="10dp"
                 android:text="내 졸음패턴"
-                android:fontFamily="@font/scdream5"
                 android:textColor="#1E1E1E" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,7 +59,7 @@
                 <com.github.mikephil.charting.charts.HorizontalBarChart
                     android:id="@+id/chart2"
                     android:layout_width="330dp"
-                    android:layout_height="205dp"
+                    android:layout_height="130dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:visibility="visible"
@@ -90,7 +90,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="500dp"
                 android:layout_margin="20dp"
                 android:background="@drawable/layout_background">
 
@@ -121,8 +121,68 @@
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.487"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    app:layout_constraintVertical_bias="0.0">
+
+                </com.github.mikephil.charting.charts.BarChart>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/layout_back2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.05"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/barchart"
+                    app:layout_constraintVertical_bias="0.237">
+
+                    <TextView
+                        android:id="@+id/tvavg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="20dp"
+                        android:text="평균 졸음빈도수"
+                        android:fontFamily="@font/scdream6"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tv_monavg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0회"
+                        android:fontFamily="@font/scdream6"
+                        android:textColor="#252525"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tvavg"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:text="최근 6개월"
+                        android:fontFamily="@font/scdream5"
+                        android:textColor="#9C9B9B"
+                        app:layout_constraintEnd_toEndOf="@+id/tvavg"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/tvavg"
+                        app:layout_constraintTop_toBottomOf="@+id/tvavg" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -135,7 +195,7 @@
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/chart"
                     android:layout_width="330dp"
-                    android:layout_height="250dp"
+                    android:layout_height="230dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:visibility="visible"
@@ -154,9 +214,9 @@
                     android:paddingTop="30dp"
                     android:paddingBottom="10dp"
                     android:text="졸음 시간대"
-                    android:fontFamily="@font/scdream6"
                     android:textColor="#1E1E1E"
                     android:textSize="20sp"
+                    android:fontFamily="@font/scdream6"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"

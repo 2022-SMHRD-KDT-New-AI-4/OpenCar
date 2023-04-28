@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PattenActivity"
+            android:name=".PatternActivity"
             android:exported="true"></activity>
         <activity
             android:name=".BellActivity"
