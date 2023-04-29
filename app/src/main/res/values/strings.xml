@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">OpenCar</string>
+    <string-array name="spinner_array">
+        <item>차종</item>
+        <item>승용차</item>
+        <item>승합차</item>
+        <item>화물차</item>
+        <item>특수차</item>
+    </string-array>
 </resources>
