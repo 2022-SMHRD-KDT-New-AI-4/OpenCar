@@ -24,10 +24,13 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.kakao.sdk.user.UserApiClient;
@@ -36,6 +39,7 @@ import com.kakao.sdk.user.model.Account;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -46,11 +50,12 @@ public class LoginActivity extends AppCompatActivity {
     EditText edt_id,edt_pw;
     Button btn_login;
     CheckBox ch_auto;
-    String loginId,loginPw,email,Nickname,inputId;
+    String loginId,loginId2,email,Nickname,loginName;
     TextView tv_join;
     ImageView btn_kakao;
     RequestQueue queue;
     PortClass port;
+    int count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,10 +86,15 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
-        loginId = auto.getString("inputId",null);
+        loginId = auto.getString("inputId",null); // 자동 로그인 캐시
+        loginId = auto.getString("inputId",null); // 일반 로그인 캐시
+        loginName = auto.getString("inputName",null); // 이름
 
-        if (loginId != null){
-            Toast.makeText(LoginActivity.this, loginId+"님 자동 로그인", Toast.LENGTH_SHORT).show();
+
+
+        // 자동 로그인 확인 즉, 캐시 저장 여부 확인
+        if (loginId != null ){
+            Toast.makeText(LoginActivity.this, loginName+"님 자동 로그인", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
             startActivity(intent);
             finish();
@@ -99,26 +109,38 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
                             Log.d("응답", response);
-
-                            if (response != null && ch_auto.isChecked()==true){
-                                SharedPreferences auto = getSharedPreferences("auto",Activity.MODE_PRIVATE);
-                                SharedPreferences.Editor autologin = auto.edit();
-                                loginId = auto.getString("inputId",edt_id.getText().toString());
-                                autologin.putString("inputId",edt_id.getText().toString());
-                                autologin.putString("inputPw",edt_pw.getText().toString());
-                                autologin.commit();
-                                Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
-
-                            }else if (response != null && ch_auto.isChecked()==false){
-                                loginId = auto.getString("inputId",edt_id.getText().toString());
-                                Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                intent.putExtra("id",edt_id.getText().toString());
-                                startActivity(intent);
-                                finish();
+                            try {
+                                JSONObject jo = new JSONObject(response);
+                                String id = jo.getString("user_id");
+                                String name = jo.getString("user_name");
+                                // 자동로그인 체크후 로그인
+                                if (response != null && ch_auto.isChecked()==true){
+                                    SharedPreferences auto = getSharedPreferences("auto",Activity.MODE_PRIVATE);
+                                    SharedPreferences.Editor autologin = auto.edit();
+                                    loginId = auto.getString("inputId", name);
+                                    autologin.putString("inputId",id);
+                                    autologin.putString("inputName",name);
+                                    autologin.commit();
+                                    Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    //finish();
+                                // 자동로그인 미체크후 로그인
+                                }else if (response != null && ch_auto.isChecked()==false){
+                                    SharedPreferences auto = getSharedPreferences("auto",Activity.MODE_PRIVATE);
+                                    SharedPreferences.Editor autologin = auto.edit();
+                                    loginId = auto.getString("inputId",name);
+                                    autologin.putString("inputId", id); // 일반 로그인
+                                    autologin.putString("inputName",name);
+                                    autologin.commit();
+                                    Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.putExtra("id",name);
+                                    startActivity(intent);
+                                    //finish();
+                                }
+                            }catch (JSONException e){
+                                Toast.makeText(getApplicationContext(), "Err onResponseJson: "+ e.toString(), Toast.LENGTH_LONG).show();
                             }
                         }
                     }, new Response.ErrorListener() {
@@ -127,6 +149,17 @@ public class LoginActivity extends AppCompatActivity {
                             Log.e("error in response","Error :"+error.toString());
                         }
                     }){
+                        @Override
+                        protected  Response<String> parseNetworkResponse(NetworkResponse response){
+                            try {
+                                String utf8String = new String(response.data, "UTF-8");
+                                return Response.success(utf8String, HttpHeaderParser.parseCacheHeaders(response));
+                            }catch (UnsupportedEncodingException e){
+                                return Response.error(new ParseError(e));
+                            }catch (Exception e){
+                                return Response.error(new ParseError(e));
+                            }
+                        }
                         protected Map<String, String> getParams() throws AuthFailureError{  ///6
                             Map<String, String> param = new HashMap<>();
 

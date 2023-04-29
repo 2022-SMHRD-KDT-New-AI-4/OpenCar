@@ -4,16 +4,16 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,12 +25,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tv_user;
     ImageView img_logout,img_bell,iv_pattern,iv_start;
     StringRequest request_start;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +56,12 @@ public class MainActivity extends AppCompatActivity {
 
         queue = Volley.newRequestQueue(getApplicationContext());
 
+
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         String inputText = auto.getString("inputId", "");
+        String inputName = auto.getString("inputName","");
 
-
-        tv_user.setText(inputText + "님");
+        tv_user.setText(inputName + "님");
 
 
         Intent intent2 = getIntent();
@@ -69,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         final String RID = nid;
-        final String RID2 = inputText;
+        final String RID2 = inputName;
 
 
         // 로그 아웃 버튼 이벤트
@@ -118,13 +121,17 @@ public class MainActivity extends AppCompatActivity {
         iv_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (inputText != null){
-                    id = inputText;
-                } else if (nid != null) {
-                    id = nid;
-                }
+                SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                String inputText = auto.getString("inputId", "");
+                //String inputText2 = auto.getString("inputId2","");
 
-                String url = port.port+"drive_insert/"+id+"/";
+//                if (inputText != null){
+//                    id = inputText;
+//                }if (nid != null){
+//                    id = inputText2;
+//                }
+
+                String url = port.port+"drive_insert/"+inputText+"/";
 
                  request_start = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
 
@@ -136,8 +143,9 @@ public class MainActivity extends AppCompatActivity {
                             Intent it_start = new Intent(MainActivity.this, DriveActivity.class);
                             it_start.putExtra("data",data);
                             it_start.putExtra("dr_seq", response);
+                            it_start.putExtra("inputText2",inputText);
                             startActivity(it_start);
-                            finish();
+                            // finish();
                             Log.d("응답","data");
                             Log.d("응답",response);
                         } catch (JSONException e) {
@@ -155,12 +163,11 @@ public class MainActivity extends AppCompatActivity {
                     protected Map<String, String> getParams() throws AuthFailureError{
                         Map<String, String> param = new HashMap<>();
 
-                        param.put("Used_id",id);
+                        param.put("User_id", inputText);
 
                         return param;
                     }
                 };
-                 request_start.setShouldCache(false);
                  queue.add(request_start);
             }
 
@@ -178,6 +185,48 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     });
+
+    // 캐시 삭제하는 기능
+    @Override
+    protected void onDestroy() {
+        SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+        String inputText2 = auto.getString("inputId2","");
+        Intent it_count = getIntent();
+        int count = it_count.getIntExtra("count",0);
+        if (inputText2 ==null) {
+            if (inputText2 != null && (count % 2) == 1) {
+                super.onDestroy();
+                Log.d("Click", "onDestroy");
+                clearApplicationDate(getApplicationContext());
+            }
+        }
+    }
+    public static void clearApplicationDate(Context context){
+        File cache = context.getCacheDir();
+        File appDir = new File(cache.getParent());
+        if (appDir.exists()){
+            String[] children = appDir.list();
+            for (String list : children){
+                Log.d("캐시삭제",list);
+                if (list.equals("cache")) continue;
+                deleteDir(new File(appDir, list));
+            }
+        }
+    }
+    private static boolean deleteDir(File dir){
+        if (dir != null && dir.isDirectory()){
+            String[] children = dir.list();
+            for (int i = 0; i<children.length; i++){
+                boolean success = deleteDir(new File(dir,children[i]));
+                if (!success){
+                    return false;
+                }
+            }
+        }
+        return dir.delete();
+    }
+
+
 
 
 }
