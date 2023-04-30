@@ -39,16 +39,84 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView4"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:fontFamily="@font/scdream5"
-                android:paddingBottom="10dp"
-                android:text="내 졸음패턴"
-                android:textColor="#1E1E1E" />
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:background="@drawable/layout_back2">
+
+                <TextView
+                    android:id="@+id/tv_ticheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:fontFamily="@font/scdream5"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="5dp"
+                    android:text="2020.03.21"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView14"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_slcheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="50dp"
+                    android:paddingBottom="10dp"
+                    android:text="💜  주행시작 0분 후 졸음감지"
+                    android:fontFamily="@font/scdream3"
+                    android:textColor="#1E1E1E"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_drhour"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="30dp"
+                    android:paddingBottom="10dp"
+                    android:text="최근 주행 정보"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/scdream6"
+                    android:textColor="#1E1E1E"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_freq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="50dp"
+                    android:paddingBottom="20dp"
+                    android:text="💙   총 0번 졸음감지"
+                    android:fontFamily="@font/scdream3"
+                    android:textColor="#1E1E1E"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_slcheck" />
+
+                <TextView
+                    android:id="@+id/tv_drhour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="50dp"
+                    android:paddingBottom="10dp"
+                    android:text="❤   주행시간 0시간 00분"
+                    android:fontFamily="@font/scdream3"
+                    android:textColor="#1E1E1E"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_ticheck" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -59,7 +127,7 @@
                 <com.github.mikephil.charting.charts.HorizontalBarChart
                     android:id="@+id/chart2"
                     android:layout_width="330dp"
-                    android:layout_height="130dp"
+                    android:layout_height="200dp"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:visibility="visible"
@@ -86,6 +154,20 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_model"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
+                    android:paddingBottom="10dp"
+                    android:text="승용차 평균보다 0회 더 졸아요"
+                    android:fontFamily="@font/scdream5"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/chart2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5"
+                    app:layout_constraintVertical_bias="0.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -93,6 +175,18 @@
                 android:layout_height="500dp"
                 android:layout_margin="20dp"
                 android:background="@drawable/layout_background">
+
+                <TextView
+                    android:id="@+id/tv_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
+                    android:paddingBottom="10dp"
+                    android:text="지난 달에 비해 졸음빈도가 낮아요"
+                    android:fontFamily="@font/scdream5"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -103,8 +197,8 @@
                     android:paddingTop="30dp"
                     android:paddingBottom="10dp"
                     android:text="월별 졸음빈도수"
-                    android:fontFamily="@font/scdream6"
                     android:textColor="#1E1E1E"
+                    android:fontFamily="@font/scdream6"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -121,9 +215,9 @@
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.487"
+                    app:layout_constraintHorizontal_bias="0.365"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_month"
                     app:layout_constraintVertical_bias="0.0">
 
                 </com.github.mikephil.charting.charts.BarChart>
@@ -176,8 +270,8 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="20dp"
                         android:text="최근 6개월"
-                        android:fontFamily="@font/scdream5"
                         android:textColor="#9C9B9B"
+                        android:fontFamily="@font/scdream4"
                         app:layout_constraintEnd_toEndOf="@+id/tvavg"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/tvavg"
@@ -191,6 +285,19 @@
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:background="@drawable/layout_background">
+
+                <TextView
+                    android:id="@+id/tv_sltime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
+                    android:paddingBottom="10dp"
+                    android:text="0시와 0시 대에 많이 졸아요"
+                    android:fontFamily="@font/scdream5"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/chart"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/chart"
@@ -214,9 +321,9 @@
                     android:paddingTop="30dp"
                     android:paddingBottom="10dp"
                     android:text="졸음 시간대"
+                    android:fontFamily="@font/scdream6"
                     android:textColor="#1E1E1E"
                     android:textSize="20sp"
-                    android:fontFamily="@font/scdream6"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"

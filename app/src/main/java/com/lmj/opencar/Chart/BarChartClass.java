@@ -67,54 +67,54 @@ public class BarChartClass {
 
 
 
-     public BarData createBarData(HashMap<Integer,Integer> map) {
+    public BarData createBarData(HashMap<Integer,Integer> map) {
 
 
-         // 1. [BarEntry] BarChart에 표시될 데이터 값 생성
-         ArrayList<BarEntry> values = new ArrayList<>();
+        // 1. [BarEntry] BarChart에 표시될 데이터 값 생성
+        ArrayList<BarEntry> values = new ArrayList<>();
 
 
-         // 0->12월, 1->1, 2->2, 3->3, 4->4, 5->5
-         for (int i = 0; i < 6; i++) { // 데이터 개수
+        // 0->12월, 1->1, 2->2, 3->3, 4->4, 5->5
+        for (int i = 0; i < 6; i++) { // 데이터 개수
 
-             if (i != 0) {
+            if (i != 0) {
 
-                 if (map.containsKey(i)) {
-                     values.add(new BarEntry(i, map.get(i)));
-                     Log.d("hereherebar", i + "," + map.get(i));
-                 } else {
-                     values.add(new BarEntry(i, 0));
-                     Log.d("hereherebar", i + "," + 0);
-                 }
-             } else {
-                 if (map.containsKey(12)) {
-                     values.add(new BarEntry(0, map.get(12)));
-                     Log.d("hereherebar", i + "," + map.get(12));
-                 } else {
-                     values.add(new BarEntry(0, 0));
-                     Log.d("hereherebar", i + "," + 0);
-                 }
+                if (map.containsKey(i)) {
+                    values.add(new BarEntry(i, map.get(i)));
+                    Log.d("hereherebar", i + "," + map.get(i));
+                } else {
+                    values.add(new BarEntry(i, 0));
+                    Log.d("hereherebar", i + "," + 0);
+                }
+            } else {
+                if (map.containsKey(12)) {
+                    values.add(new BarEntry(0, map.get(12)));
+                    Log.d("hereherebar", i + "," + map.get(12));
+                } else {
+                    values.add(new BarEntry(0, 0));
+                    Log.d("hereherebar", i + "," + 0);
+                }
 
-             }
+            }
 
-         }
+        }
 
 
-         BarDataSet barDataSet = new BarDataSet(values, "check");
-         barDataSet.setDrawIcons(false);
-         barDataSet.setDrawValues(false);
-         barDataSet.setColor(Color.parseColor("#4D95F7"));
+        BarDataSet barDataSet = new BarDataSet(values, "check");
+        barDataSet.setDrawIcons(false);
+        barDataSet.setDrawValues(false);
+        barDataSet.setColors(Color.parseColor("#E1E2E7"),Color.parseColor("#E1E2E7"),Color.parseColor("#E1E2E7"),Color.parseColor("#E1E2E7"),Color.parseColor("#D0DFFC"),Color.parseColor("#4D95F7"));
 //        barDataSet.setValueTextColor(Color.rgb(163, 163, 163));
 //        barDataSet.setValueTextSize(10f);
 
-         BarData barData = new BarData(barDataSet);
+        BarData barData = new BarData(barDataSet);
 
-         barData.setBarWidth(0.6f);
+        barData.setBarWidth(0.6f);
 
-         return barData;
-     }
+        return barData;
+    }
 
-     public void prepareBar(BarData data) {
+    public void prepareBar(BarData data) {
 
 //        barchart2.setFitBars(true);
         barchart2.setData(data);

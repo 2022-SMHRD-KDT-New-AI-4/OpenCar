@@ -21,6 +21,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -39,9 +40,11 @@ public class PatternActivity extends AppCompatActivity {
     LineChart linechart;
     RequestQueue queue;
     StringRequest request_sleep_my_hour_count,request_sleep_my_month_avg_count;
-    StringRequest request_sleep_my_month_count,request_sleep_my_all;
+    StringRequest request_sleep_my_month_count,request_sleep_my_all,request_sleep_time_rank;
+    StringRequest request_myinfo;
     PortClass port;
-    TextView tv_monavg;
+    TextView tv_monavg,tv_month,tv_model,tv_sltime,tv_ticheck,tv_slcheck;
+    TextView tv_drhour, tv_freq;
 
 
     @Override
@@ -57,14 +60,30 @@ public class PatternActivity extends AppCompatActivity {
 
         linechart = findViewById(R.id.chart);
         tv_monavg = findViewById(R.id.tv_monavg);
+        tv_month = findViewById(R.id.tv_month);
+        tv_model = findViewById(R.id.tv_model);
+        tv_sltime = findViewById(R.id.tv_sltime);
+        tv_ticheck = findViewById(R.id.tv_ticheck);
+        tv_slcheck = findViewById(R.id.tv_slcheck);
+        tv_drhour = findViewById(R.id.tv_drhour);
+        tv_freq = findViewById(R.id.tv_freq);
 
 
         // 통로는 한개만 있어두 됨
         queue = Volley.newRequestQueue(getApplicationContext());
 
 
+        // volley로 나이대와 차종 받기
+        String[] myinfo = new String[2];
+
+
+
+
+
+
+
         // HorizontalBarChart 전체 졸음빈도수
-        hc.configureChartAppearance();
+        hc.configureChartAppearance(myinfo);
         volleySleepcount();
 
         // LineChart 졸음시간대(6개월)
@@ -75,6 +94,11 @@ public class PatternActivity extends AppCompatActivity {
         // BarChart 월별 졸음빈도수
         bc.makeBarChart();
         volleyMonth();
+
+
+
+
+        // volley 주행 날짜 & 주행시간 & 주행시작 후 첫 번째 졸음감지 & 최근 주행 졸음 빈도수
 
 
 
@@ -89,7 +113,7 @@ public class PatternActivity extends AppCompatActivity {
                     JSONObject jo = new JSONObject(response);
 
                     // json 가져오기 -----> ★★★★
-                    int cnt = Integer.parseInt(jo.getJSONObject("0").getString("monthavg")); // 평균
+                    float cnt = Float.parseFloat(jo.getJSONObject("0").getString("monthavg")); // 평균
                     tv_monavg.setText(cnt+"회");
 
                 } catch (JSONException e) {
@@ -109,7 +133,58 @@ public class PatternActivity extends AppCompatActivity {
         queue.add(request_sleep_my_month_avg_count);
 
 
+
+
+        // 졸음시간대 top2
+        url = port.port+"sleep_time_rank/"+"test1"; // 아이디 수정필요
+
+        request_sleep_time_rank = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jo = new JSONObject(response);
+
+                    int[] times = new int[2];
+
+                    // json 가져오기 -----> ★★★★ null에러 뜨는 지 확인하기
+                    for(int i=0;i<jo.length();i++){
+                        times[i] = Integer.parseInt(jo.getJSONObject(Integer.toString(i)).getString("time")); // 시간1
+                    }
+//                    tv_monavg.setText(cnt+"회");
+
+                    if(times[1] != 0){
+                        tv_sltime.setText(times[0]+"시와 "+times[1]+"시에 많이 졸아요");
+                    } else {
+                        tv_sltime.setText(times[0]+"시에 많이 졸아요");
+                    }
+
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Err onResponseJson: " + e.toString(), Toast.LENGTH_LONG).show();
+                    Log.d("herehere","Err onResponseJson: " + e.toString());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(PatternActivity.this, "Err ErrorListener: " + error.toString(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        queue.add(request_sleep_time_rank);
+
+
+
+
+
+
+
     }
+
+
+
 
 
     // *** LineChart 졸음시간대(6개월)
@@ -284,6 +359,8 @@ public class PatternActivity extends AppCompatActivity {
     public void volleySleepcount(){
         HoriBarChartClass hc = new HoriBarChartClass();
         hc.barChart = findViewById(R.id.chart2);
+        tv_model = findViewById(R.id.tv_model);
+
 
         // 1. 나의 총 졸음운전 빈도수 & 전체 평균 졸음운전 빈도수
         String url = port.port+"sleep_my_all/"+"test1"; // 아이디 수정필요
@@ -292,14 +369,38 @@ public class PatternActivity extends AppCompatActivity {
             public void onResponse(String response) {
 
                 try {
+
+                    float ref = 0;
+                    String fe = "더";
+
                     JSONObject jo = new JSONObject(response);
                     // 여기서 데이터 값 빼오기
 
                     // json 가져오기 -----> ★★★★★
-                    int my = Integer.parseInt(jo.getJSONObject("0").getString("freq")); // 나
-                    int all = Integer.parseInt(jo.getJSONObject("1").getString("freq")); // 전체
+                    float my = Float.parseFloat(jo.getJSONObject("3").getString("freq")); // 나
+                    float all = Float.parseFloat(jo.getJSONObject("1").getString("freq")); // 전체
+                    float age = Float.parseFloat(jo.getJSONObject("0").getString("freq")); // 나이대
+                    float model = Float.parseFloat(jo.getJSONObject("2").getString("freq")); // 전체
 
-                    hc.prepareChartData(hc.createChartData(new int[]{all,my}));
+                    Log.d("hereherehori","my:"+my);
+                    Log.d("hereherehori","all:"+all);
+                    Log.d("hereherehori","age:"+age);
+                    Log.d("hereherehori","model:"+model);
+
+                    if(my>=age){
+                        ref = my-age;
+                    } else if(my<age) {
+                        ref = age-my;
+                        fe="덜";
+                    }
+
+
+                    tv_model.setText("승용차"+" 평균보다 "+ref+"회 "+fe+" 졸아요");
+                    hc.prepareChartData(hc.createChartData(new float[]{all,age,model,my}));
+
+
+
+
 
 
 
@@ -341,6 +442,7 @@ public class PatternActivity extends AppCompatActivity {
     public void volleyMonth(){
         BarChartClass bc = new BarChartClass();
         bc.barchart2 = findViewById(R.id.barchart);
+        tv_month = findViewById(R.id.tv_month);
 
         HashMap<Integer,Integer> map = new HashMap<>();
         String url = port.port+"sleep_my_month_count/"+"test1"; // 아이디 수정필요
@@ -351,6 +453,7 @@ public class PatternActivity extends AppCompatActivity {
 
 
                 try {
+                    String re = "낮아요";
                     JSONObject jo = new JSONObject(response);
 
                     // 1~24시 추출
@@ -362,8 +465,46 @@ public class PatternActivity extends AppCompatActivity {
 //                        Log.d("hereherein",time+","+count);
                     }
 
+
+                    BarData data = bc.createBarData(map);
+
+
+                    String dat = data.getDataSets().toString();
+                    String[] arr = dat.split(",");
+
+
+                    int idx = arr[8].indexOf("y");
+                    int idx_1 = arr[8].indexOf("]");
+                    Log.d("hereherearr","arr8:"+arr[8].substring(idx+3,idx_1-1));
+                    int idx2 = arr[7].indexOf("y");
+                    int idx2_1 = arr[7].indexOf("E");
+                    Log.d("hereherearr","arr7:"+arr[7].substring(idx2+3,idx2_1-1));
+
+                    float m5 = Float.parseFloat(arr[8].substring(idx+3,idx_1-1));
+                    float m4 = Float.parseFloat(arr[7].substring(idx2+3,idx2_1-1));
+
+                    if(m4<m5){
+                        re = "높아요";
+                    } else if (m4==m5){
+                        re = "같아요";
+                    }
+
+
+
+
+                    tv_month.setText("지난 달에 비해 졸음빈도가 "+re);
+
+
+
                     // BarChart 생성
-                    bc.prepareBar(bc.createBarData(map));
+                    bc.prepareBar(data);
+
+
+
+
+
+
+
 
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "Err onResponseJson: " + e.toString(), Toast.LENGTH_LONG).show();

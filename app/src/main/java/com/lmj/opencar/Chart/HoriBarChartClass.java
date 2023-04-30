@@ -17,13 +17,11 @@ import java.util.ArrayList;
 
 public class HoriBarChartClass {
     public HorizontalBarChart barChart;
-    RequestQueue queue;
-    StringRequest request_sleep_my_count;
-    PortClass port;
+
 
     // *** HorizontalBarChart --> 전체 졸음빈도수
     // BarChart의 기본적인 것들을 세팅
-    public void configureChartAppearance() {
+    public void configureChartAppearance(String[] myinfo) {
 
         barChart.getDescription().setEnabled(false); // chart 밑에 description 표시 유무
         barChart.setTouchEnabled(false); // 터치 유무
@@ -57,7 +55,9 @@ public class HoriBarChartClass {
         axisRight.setDrawGridLines(false);
         axisRight.setDrawAxisLine(false);
 
-        String[] name = {"전체","나"};
+        // myinfo[0]과 myinfo[1] 로 고치기!!!!!!!!!!
+        // name[1]:나이대, name[2]:차종
+        String[] name = {"전체","20대","승용차","나"};
 
         // XAxis에 원하는 String 설정하기 (앱 이름)
         xAxis.setValueFormatter(new ValueFormatter() {
@@ -74,11 +74,11 @@ public class HoriBarChartClass {
 
 
     // BarChart에 표시될 데이터를 생성
-    public BarData createChartData(int[] counts) {
+    public BarData createChartData(float[] counts) {
 
         // 1. [BarEntry] BarChart에 표시될 데이터 값 생성
         ArrayList<BarEntry> values = new ArrayList<>();
-        for (int i = 0; i < 2; i++) { // 데이터 개수
+        for (int i = 0; i < 4; i++) { // 데이터 개수
             float x = i;
             float y = counts[i];
             values.add(new BarEntry(x, y));
@@ -88,7 +88,7 @@ public class HoriBarChartClass {
         BarDataSet set2 = new BarDataSet(values, "values");
         set2.setDrawIcons(false);
         set2.setDrawValues(true);
-        set2.setColors(Color.parseColor("#D0DFFC"),Color.parseColor("#4D95F7")); // 색상 설정
+        set2.setColors(Color.parseColor("#D0DFFC"),Color.parseColor("#D0DFFC"),Color.parseColor("#D0DFFC"),Color.parseColor("#4D95F7")); // 색상 설정
 
 
 
@@ -96,15 +96,15 @@ public class HoriBarChartClass {
         set2.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return (String.valueOf((int)value)) + "번";
+                return (String.valueOf(value)) + "회";
             }
         });
 
         // 3. [BarData] 보여질 데이터 구성
         BarData data = new BarData(set2);
-        data.setBarWidth(0.95f);
+        data.setBarWidth(0.6f);
         data.setValueTextSize(13);
-//        data.setValueTextColor(Color.parseColor("#4D95F7"));
+        data.setValueTextColor(Color.rgb(163, 163, 163));
 
 
         /// ★★★★★★★★★★★★여기 폰트 check염~!~!~!~★★★★★★★★★★★★★
