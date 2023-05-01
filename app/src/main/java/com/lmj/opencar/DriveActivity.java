@@ -30,7 +30,7 @@ public class DriveActivity extends AppCompatActivity {
     Button btn_fin;
     RequestQueue queue;
     PortClass port;
-
+    int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +65,8 @@ public class DriveActivity extends AppCompatActivity {
                         SharedPreferences.Editor autologin = auto.edit();
                         autologin.commit();
                         Intent intent = new Intent(DriveActivity.this, MainActivity.class);
-                        intent.putExtra("count",3);
+                        count = 3;
+                        intent.putExtra("count",count);
                         startActivity(intent);
                         finish();
                     }

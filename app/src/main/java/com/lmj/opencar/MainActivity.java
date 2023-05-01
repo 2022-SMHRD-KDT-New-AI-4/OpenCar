@@ -38,11 +38,10 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     public static RequestQueue queue;
     PortClass port;
-    String id;
     TextView tv_user;
     ImageView img_logout,img_bell,iv_pattern,iv_start;
     StringRequest request_start;
-
+    int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.clear();
                 editor.commit();
                 Toast.makeText(MainActivity.this, "로그아웃", Toast.LENGTH_SHORT).show();
-                finish();
+                //finish();
             }
         });
 
@@ -190,10 +189,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+        String inputText = auto.getString("inputId",null);
         String inputText2 = auto.getString("inputId2","");
+        int input = auto.getInt("co",0);
         Intent it_count = getIntent();
-        int count = it_count.getIntExtra("count",0);
-        if (inputText2 ==null) {
+        count = it_count.getIntExtra("count",0);
+        if (input == 0) {
             if (inputText2 != null && (count % 2) == 1) {
                 super.onDestroy();
                 Log.d("Click", "onDestroy");

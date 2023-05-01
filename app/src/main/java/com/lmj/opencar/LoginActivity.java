@@ -50,12 +50,11 @@ public class LoginActivity extends AppCompatActivity {
     EditText edt_id,edt_pw;
     Button btn_login;
     CheckBox ch_auto;
-    String loginId,loginId2,email,Nickname,loginName;
+    String loginId,email,Nickname,loginName;
     TextView tv_join;
     ImageView btn_kakao;
     RequestQueue queue;
     PortClass port;
-    int count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                                     SharedPreferences.Editor autologin = auto.edit();
                                     loginId = auto.getString("inputId", name);
                                     autologin.putString("inputId",id);
+                                    autologin.putInt("co",1);
                                     autologin.putString("inputName",name);
                                     autologin.commit();
                                     Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
@@ -132,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                                     loginId = auto.getString("inputId",name);
                                     autologin.putString("inputId", id); // 일반 로그인
                                     autologin.putString("inputName",name);
+                                    autologin.putInt("co",0);
                                     autologin.commit();
                                     Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -181,6 +182,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_kakao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (UserApiClient.getInstance().isKakaoTalkLoginAvailable(LoginActivity.this)){
                     login();
                 }else {
@@ -285,23 +287,23 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public String getKeyHash() {
-        try {
-            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-            if (packageInfo == null) return null;
-            for (Signature signature : packageInfo.signatures) {
-                try {
-                    MessageDigest md = MessageDigest.getInstance("SHA");
-                    md.update(signature.toByteArray());
-                    return android.util.Base64.encodeToString(md.digest(), Base64.NO_WRAP);
-                } catch (NoSuchAlgorithmException e) {
-                    Log.w("getKeyHash", "Unable to get MessageDigest. signature=" + signature, e);
-                }
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.w("getPackageInfo", "Unable to getPackageInfo");
-        }
-        return null;
-    }
+//    public String getKeyHash() {
+//        try {
+//            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+//            if (packageInfo == null) return null;
+//            for (Signature signature : packageInfo.signatures) {
+//                try {
+//                    MessageDigest md = MessageDigest.getInstance("SHA");
+//                    md.update(signature.toByteArray());
+//                    return android.util.Base64.encodeToString(md.digest(), Base64.NO_WRAP);
+//                } catch (NoSuchAlgorithmException e) {
+//                    Log.w("getKeyHash", "Unable to get MessageDigest. signature=" + signature, e);
+//                }
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//            Log.w("getPackageInfo", "Unable to getPackageInfo");
+//        }
+//        return null;
+//    }
 
 }// class
