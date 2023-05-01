@@ -38,14 +38,12 @@
         android:id="@+id/btn_join"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="200dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#03A9F4"
         android:text="회원가입"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/edt_bir"
+        app:layout_constraintEnd_toEndOf="@+id/sp_list"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edt_bir"
+        app:layout_constraintStart_toStartOf="@+id/sp_list"
         app:layout_constraintTop_toBottomOf="@+id/sp_list" />
 
     <TextView
