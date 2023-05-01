@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="@+id/edt_bir"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/edt_bir"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/sp_list" />
 
     <TextView
         android:id="@+id/tv_login"
@@ -92,10 +92,11 @@
         app:layout_constraintTop_toBottomOf="@+id/edt_name" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/sp_list"
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
+        android:entries="@array/차종"
         android:layout_centerHorizontal="true"
         app:layout_constraintEnd_toEndOf="@+id/edt_bir"
         app:layout_constraintHorizontal_bias="0.0"

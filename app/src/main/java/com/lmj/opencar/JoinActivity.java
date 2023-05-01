@@ -30,7 +30,9 @@ public class JoinActivity extends AppCompatActivity {
     RequestQueue queue;
     StringRequest request_join;
     PortClass port;
-//    private ActivityMainBinding binding;
+    Spinner sp_list;
+    String[] items = {"차종","승용차","승합차","화물차","특수차"};
+    String model;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,39 +43,49 @@ public class JoinActivity extends AppCompatActivity {
         pw = findViewById(R.id.edt_pw);
         birth = findViewById(R.id.edt_bir);
         name = findViewById(R.id.edt_name);
+        sp_list = findViewById(R.id.sp_list);
 
-        //어댑터 생성
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner_array,R.layout.activity_join);
-        //드롭다운뷰 연결
-        adapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
-        //UI와 연결
-//        binding.homeSpinner.setAdapter(adapter);
-    }
+        // 어댑터 생성
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,items);
+        // ui와 연결
+        sp_list.setAdapter(adapter);
 
-    //Spinner Listener
-    public void spinnerListener() {
-//        binding.homeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//
-//            //선택 시 작동기능
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                switch (position) {
-//                    case 1:
-//                        break;
-//                    case 2:
-//                        break;
-//                    case 3:
-//                        break;
-//                }
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
+        sp_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override // position 으로 몇번째 것이 선택되었는지 값을 넘겨준다.
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                switch (position){
+                    case 1:
+                        if (position == 1){
+                            model = "승용차";
+                            Log.d("응답1",model);
+                        }
+                        break;
+                    case 2:
+                        if (position == 2){
+                            model = "승합차";
+                            Log.d("응답2",model);
+                        }
+                        break;
+                    case 3:
+                        if (position == 3){
+                            model = "화물차";
+                            Log.d("응답3",model);
+                        }
+                        break;
+                    case 4:
+                        if (position == 4){
+                            model = "특수차";
+                            Log.d("응답4",model);
+                        }
+                        break;
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
 
 
 
@@ -109,7 +121,7 @@ public class JoinActivity extends AppCompatActivity {
                         param.put("User_pw",pw.getText().toString());
                         param.put("User_name",name.getText().toString());
                         param.put("User_birthdate",birth.getText().toString());
-
+                        param.put("User_model", model);
                         return param;
                     }
                 };
@@ -117,5 +129,11 @@ public class JoinActivity extends AppCompatActivity {
 
             }
         });
-    }
-}
+
+
+
+
+
+    }// onCreate
+
+}// class

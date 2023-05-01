@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\smhrd\\AndroidStudioProjects\\MyApp.jks')
+            keyAlias 'key0'
+            storePassword '749036'
+            keyPassword '749036'
+        }
+    }
     namespace 'com.lmj.opencar'
     compileSdk 33
 
