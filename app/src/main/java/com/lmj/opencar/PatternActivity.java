@@ -2,6 +2,8 @@ package com.lmj.opencar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,10 +43,11 @@ public class PatternActivity extends AppCompatActivity {
     RequestQueue queue;
     StringRequest request_sleep_my_hour_count,request_sleep_my_month_avg_count;
     StringRequest request_sleep_my_month_count,request_sleep_my_all,request_sleep_time_rank;
-    StringRequest request_myinfo;
+    StringRequest request_myinfo,request_my_drive_info;
     PortClass port;
     TextView tv_monavg,tv_month,tv_model,tv_sltime,tv_ticheck,tv_slcheck;
-    TextView tv_drhour, tv_freq;
+    TextView tv_drhour, tv_freq, tv_modelcheck;
+    String loginId;
 
 
     @Override
@@ -67,14 +70,72 @@ public class PatternActivity extends AppCompatActivity {
         tv_slcheck = findViewById(R.id.tv_slcheck);
         tv_drhour = findViewById(R.id.tv_drhour);
         tv_freq = findViewById(R.id.tv_freq);
+        tv_modelcheck = findViewById(R.id.tv_modelcheck);
+
+        SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+        loginId = auto.getString("inputId",null); // 자동 로그인 캐시
+        loginId = auto.getString("inputId",null); // 일반 로그인 캐시
 
 
         // 통로는 한개만 있어두 됨
         queue = Volley.newRequestQueue(getApplicationContext());
 
 
-        // volley로 나이대와 차종 받기
-        String[] myinfo = new String[2];
+
+        // volley로 나이대와 차종 받기 및 그래프 그리기
+
+        String url = port.port+"my_info/"+loginId; // 아이디 수정필요
+
+        request_myinfo = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jo = new JSONObject(response);
+                    String[] myinfo = new String[2];
+
+                    // json 가져오기 -----> ★★★★
+                    myinfo[0] = jo.getString("user_age"); // 나이대
+                    myinfo[1] = jo.getString("user_model");// 차종
+
+                    // 차종 정보
+                    tv_modelcheck.setText(myinfo[1]);
+
+
+                    // HorizontalBarChart 전체 졸음빈도수
+                    hc.configureChartAppearance(myinfo);
+                    volleySleepcount();
+
+
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Err onResponseJson: " + e.toString(), Toast.LENGTH_LONG).show();
+                    Log.d("herehere","Err onResponseJson: " + e.toString());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(PatternActivity.this, "Err ErrorListener: " + error.toString(), Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override //response를 UTF8로 변경해주는 소스코드
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                try {
+                    String utf8String = new String(response.data, "UTF-8");
+                    return Response.success(utf8String, HttpHeaderParser.parseCacheHeaders(response));
+                } catch (UnsupportedEncodingException e) {
+                    // log error
+                    return Response.error(new ParseError(e));
+                } catch (Exception e) {
+                    // log error
+                    return Response.error(new ParseError(e));
+                }
+            }
+        };
+
+        queue.add(request_myinfo);
 
 
 
@@ -82,9 +143,7 @@ public class PatternActivity extends AppCompatActivity {
 
 
 
-        // HorizontalBarChart 전체 졸음빈도수
-        hc.configureChartAppearance(myinfo);
-        volleySleepcount();
+
 
         // LineChart 졸음시간대(6개월)
         configureChartAppearance(linechart,4);
@@ -99,11 +158,53 @@ public class PatternActivity extends AppCompatActivity {
 
 
         // volley 주행 날짜 & 주행시간 & 주행시작 후 첫 번째 졸음감지 & 최근 주행 졸음 빈도수
+        url = port.port+"my_drive_info/"+loginId; // 아이디 수정필요
+
+        request_my_drive_info = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jo = new JSONObject(response);
+
+                    // json 가져오기 -----> ★★★★
+                    int driveTime = Integer.parseInt(jo.getString("drive_time"));
+                    int slTime = Integer.parseInt(jo.getString("sl_time"));
+                    int freq = Integer.parseInt(jo.getString("freq"));
+
+
+
+                    tv_ticheck.setText(jo.getString("day")); // 최근날짜
+                    tv_drhour.setText("◾   주행시간 "+driveTime/60+"시간 "+driveTime%60+"분");
+                    tv_slcheck.setText("◾   주행시작 "+slTime/60+"시간 "+slTime%60+"분 후 졸음감지");
+                    tv_freq.setText("◾   총 "+freq+"회 졸음감지");
+
+
+
+
+
+
+
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Err onResponseJson: " + e.toString(), Toast.LENGTH_LONG).show();
+                    Log.d("herehere","Err onResponseJson: " + e.toString());
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(PatternActivity.this, "Err ErrorListener: " + error.toString(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        queue.add(request_my_drive_info);
 
 
 
         // 월별 평균 졸음빈도수
-        String url = port.port+"sleep_my_month_avg_count/"+"test1"; // 아이디 수정필요
+        url = port.port+"sleep_my_month_avg_count/"+loginId; // 아이디 수정필요
 
         request_sleep_my_month_avg_count = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -136,7 +237,7 @@ public class PatternActivity extends AppCompatActivity {
 
 
         // 졸음시간대 top2
-        url = port.port+"sleep_time_rank/"+"test1"; // 아이디 수정필요
+        url = port.port+"sleep_time_rank/"+loginId; // 아이디 수정필요
 
         request_sleep_time_rank = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -254,7 +355,7 @@ public class PatternActivity extends AppCompatActivity {
     public void volleyGet(){
         HashMap<Integer,Integer> map = new HashMap<>();
 
-        String url = port.port+"sleep_my_hour_count/"+"test1"; // 아이디 수정필요
+        String url = port.port+"sleep_my_hour_count/"+loginId; // 아이디 수정필요
 
         request_sleep_my_hour_count = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -363,7 +464,7 @@ public class PatternActivity extends AppCompatActivity {
 
 
         // 1. 나의 총 졸음운전 빈도수 & 전체 평균 졸음운전 빈도수
-        String url = port.port+"sleep_my_all/"+"test1"; // 아이디 수정필요
+        String url = port.port+"sleep_my_all/"+loginId; // 아이디 수정필요
         request_sleep_my_all = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -380,25 +481,23 @@ public class PatternActivity extends AppCompatActivity {
                     float my = Float.parseFloat(jo.getJSONObject("3").getString("freq")); // 나
                     float all = Float.parseFloat(jo.getJSONObject("1").getString("freq")); // 전체
                     float age = Float.parseFloat(jo.getJSONObject("0").getString("freq")); // 나이대
-                    float model = Float.parseFloat(jo.getJSONObject("2").getString("freq")); // 전체
+                    float model = Float.parseFloat(jo.getJSONObject("2").getString("freq")); // 차종
 
-                    Log.d("hereherehori","my:"+my);
-                    Log.d("hereherehori","all:"+all);
-                    Log.d("hereherehori","age:"+age);
-                    Log.d("hereherehori","model:"+model);
+//                    Log.d("hereherehori","my:"+my);
+//                    Log.d("hereherehori","all:"+all);
+//                    Log.d("hereherehori","age:"+age);
+//                    Log.d("hereherehori","model:"+model);
 
-                    if(my>=age){
-                        ref = my-age;
-                    } else if(my<age) {
-                        ref = age-my;
+                    if(my>=model){
+                        ref = my-model;
+                    } else if(my<model) {
+                        ref = model-my;
                         fe="덜";
                     }
 
-
-                    tv_model.setText("승용차"+" 평균보다 "+ref+"회 "+fe+" 졸아요");
+                    // ★★★★★★★★이부분 수정해야함!★★★★★★★★★
+                    tv_model.setText(" 평균보다 "+ref+"회 "+fe+" 졸아요");
                     hc.prepareChartData(hc.createChartData(new float[]{all,age,model,my}));
-
-
 
 
 
@@ -445,7 +544,7 @@ public class PatternActivity extends AppCompatActivity {
         tv_month = findViewById(R.id.tv_month);
 
         HashMap<Integer,Integer> map = new HashMap<>();
-        String url = port.port+"sleep_my_month_count/"+"test1"; // 아이디 수정필요
+        String url = port.port+"sleep_my_month_count/"+loginId; // 아이디 수정필요
 
         request_sleep_my_month_count = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override

@@ -18,7 +18,6 @@ import java.util.ArrayList;
 public class HoriBarChartClass {
     public HorizontalBarChart barChart;
 
-
     // *** HorizontalBarChart --> 전체 졸음빈도수
     // BarChart의 기본적인 것들을 세팅
     public void configureChartAppearance(String[] myinfo) {
@@ -57,7 +56,7 @@ public class HoriBarChartClass {
 
         // myinfo[0]과 myinfo[1] 로 고치기!!!!!!!!!!
         // name[1]:나이대, name[2]:차종
-        String[] name = {"전체","20대","승용차","나"};
+        String[] name = {"전체",myinfo[0],myinfo[1],"나"};
 
         // XAxis에 원하는 String 설정하기 (앱 이름)
         xAxis.setValueFormatter(new ValueFormatter() {
