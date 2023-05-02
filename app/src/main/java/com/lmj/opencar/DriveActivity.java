@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import com.android.volley.AuthFailureError;
@@ -29,6 +31,7 @@ import java.util.Map;
 public class DriveActivity extends AppCompatActivity {
 
     Button btn_fin;
+    WebView wv_camera;
     RequestQueue queue;
     PortClass port;
     int count;
@@ -40,6 +43,17 @@ public class DriveActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drive);
 
         btn_fin = findViewById(R.id.btn_fin);
+
+        wv_camera = findViewById(R.id.wv_camera);
+
+        wv_camera.setWebViewClient(new WebViewClient());
+        wv_camera.getSettings().setJavaScriptEnabled(true);
+
+        wv_camera.getSettings().setUseWideViewPort(true); // wide viewport를 유연하게 설정하고
+        wv_camera.getSettings().setLoadWithOverviewMode(true); // 컨텐츠가 웹뷰 범위에 벗어날 경우  크기에 맞게 조절
+
+
+        wv_camera.loadUrl("http://220.80.88.51:5000/stream");
 
         queue = Volley.newRequestQueue(getApplicationContext());
 
