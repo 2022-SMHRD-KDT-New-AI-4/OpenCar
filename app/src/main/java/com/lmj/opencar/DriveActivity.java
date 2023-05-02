@@ -53,7 +53,7 @@ public class DriveActivity extends AppCompatActivity {
         wv_camera.getSettings().setLoadWithOverviewMode(true); // 컨텐츠가 웹뷰 범위에 벗어날 경우  크기에 맞게 조절
 
 
-        wv_camera.loadUrl("http://220.80.88.51:5000/stream");
+        wv_camera.loadUrl(port.camPort+"stream");
 
         queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -73,6 +73,12 @@ public class DriveActivity extends AppCompatActivity {
         btn_fin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //backgroundService 끝내기
+                Intent backgroundService = new Intent(DriveActivity.this,BackGroundService.class);
+                backgroundService.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                stopService(backgroundService);
+
                 String url = port.port+"drive_update/"+dr_seq+"/";
                 StringRequest request_driver = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                     @Override

@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     StringRequest request_start;
     int count;
     String inputText;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,6 +157,12 @@ public class MainActivity extends AppCompatActivity {
                             it_start.putExtra("data",data);
                             it_start.putExtra("dr_seq", response);
                             it_start.putExtra("inputText2",inputText);
+
+                            // Background 시작
+                            Intent backgroundService = new Intent(MainActivity.this,BackGroundService.class);
+                            backgroundService.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // 보내는 곳이 activity 아니면 Flags 필요
+                            startService(backgroundService);
+
                             startActivity(it_start);
                              finish();
 //                            Log.d("응답","data");
@@ -226,18 +234,18 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }
 //    }
-    private static boolean deleteDir(File dir){
-        if (dir != null && dir.isDirectory()){
-            String[] children = dir.list();
-            for (int i = 0; i<children.length; i++){
-                boolean success = deleteDir(new File(dir,children[i]));
-                if (!success){
-                    return false;
-                }
-            }
-        }
-        return dir.delete();
-    }
+//    private static boolean deleteDir(File dir){
+//        if (dir != null && dir.isDirectory()){
+//            String[] children = dir.list();
+//            for (int i = 0; i<children.length; i++){
+//                boolean success = deleteDir(new File(dir,children[i]));
+//                if (!success){
+//                    return false;
+//                }
+//            }
+//        }
+//        return dir.delete();
+//    }
 
 
 
