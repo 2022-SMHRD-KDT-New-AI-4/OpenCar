@@ -158,9 +158,11 @@ public class MainActivity extends AppCompatActivity {
                             it_start.putExtra("dr_seq", response);
                             it_start.putExtra("inputText2",inputText);
 
+
                             // Background 시작
                             Intent backgroundService = new Intent(MainActivity.this,BackGroundService.class);
                             backgroundService.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // 보내는 곳이 activity 아니면 Flags 필요
+                            backgroundService.putExtra("dr_seq", response);
                             startService(backgroundService);
 
                             startActivity(it_start);
@@ -189,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
                 };
                  queue.add(request_start);
             }
+
+
 
         });
 
