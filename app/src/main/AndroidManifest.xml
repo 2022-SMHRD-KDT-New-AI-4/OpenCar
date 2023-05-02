@@ -27,7 +27,7 @@
             android:exported="false" />
 
         <service
-            android:name=".BaackGroundService"
+            android:name=".BackGroundService"
             android:enabled="true"
             android:exported="true" />
 

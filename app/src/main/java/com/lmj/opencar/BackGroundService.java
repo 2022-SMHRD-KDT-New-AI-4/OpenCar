@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 /* 새로운 Service 클래스 작성 방법
  1. app오른쪽클릭>New>Service>Service 선택
@@ -33,7 +36,7 @@ import java.util.Map;
 서비스는 기본적으로 어플리케이션의 main thread를 이용하므로,
 별도 스레드 생성없이 작업할 코드를 수행하면 메인 스레드에 과부하가 걸린다.*/
 
-public class BaackGroundService extends Service {
+public class BackGroundService extends Service {
 
     // 필드 부분 private 접근자 사용
 
@@ -46,13 +49,17 @@ public class BaackGroundService extends Service {
     // Thread 관련 필드
     private backgroundThread backgroundThread;
     private ToneGenerator tone;
+    TextToSpeech tts;
+    private String [] wakeUp_alarms;
+    private Random random;
 
     // Service 관련 필드
     private boolean check; // 운전 시작 버튼 클릭시 true / 운전 완료 버튼 클릭시 false
     private String result; // 졸음운전 감지 ( 감지 완료 - ( 졸음 o - true , 졸음 x - false) 감지 실패 - 감지x ) 3가지 분류
 
 
-    public BaackGroundService() {  // 생성자
+
+    public BackGroundService() {  // 생성자
     }  // 생성자
 
     @Override
@@ -67,6 +74,8 @@ public class BaackGroundService extends Service {
         result = "false";
         backgroundThread = new backgroundThread();
         tone = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
+        wakeUp_alarms = new String[]
+                { "또 졸고 있네요","계속 졸지 마세요","왜 또 졸아요?","그만 자세요","정신차려"};
 
         // volley, thread 기능 시작
         backgroundThread.start();
@@ -133,6 +142,25 @@ public class BaackGroundService extends Service {
                             "com.ksm.test_thread.PopupActivity");
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+
+                    tts = new TextToSpeech(BackGroundService.this, new TextToSpeech.OnInitListener() {
+                        @Override
+                        public void onInit(int i) {
+                            if( i == TextToSpeech.SUCCESS) {
+                                int result = tts.setLanguage(Locale.KOREAN);
+
+                                if (result == TextToSpeech.LANG_NOT_SUPPORTED || result == TextToSpeech.LANG_MISSING_DATA) {
+                                    Log.e("TTS","지원하지 않는 언어입니다");
+                                } else {
+                                    tts.speak(wakeUp_alarms[random.nextInt(wakeUp_alarms.length)],
+                                            TextToSpeech.QUEUE_FLUSH, null, "uid");
+
+                                }
+                            } else {
+                                Log.e("TTS","실패");
+                            }
+                        }
+                    });
 
 
                 } else if (response.equals("감지x")) {
