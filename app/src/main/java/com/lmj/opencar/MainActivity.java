@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView img_logout,img_bell,iv_pattern,iv_start,iv_manage;
     StringRequest request_start;
     int count;
+    String inputText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
-        String inputText = auto.getString("inputId", "");
+        inputText = auto.getString("inputId", "");
         String inputName = auto.getString("inputName","");
 
         tv_user.setText(inputName + "님");
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
-                String inputText = auto.getString("inputId", "");
+//                String inputText = auto.getString("inputId", "");
                 //String inputText2 = auto.getString("inputId2","");
 
 //                if (inputText != null){
@@ -155,9 +156,9 @@ public class MainActivity extends AppCompatActivity {
                             it_start.putExtra("dr_seq", response);
                             it_start.putExtra("inputText2",inputText);
                             startActivity(it_start);
-                            // finish();
-                            Log.d("응답","data");
-                            Log.d("응답",response);
+                             finish();
+//                            Log.d("응답","data");
+//                            Log.d("응답",response);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -197,34 +198,34 @@ public class MainActivity extends AppCompatActivity {
                     });
 
     // 캐시 삭제하는 기능
-    @Override
-    protected void onDestroy() {
-        SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
-        String inputText = auto.getString("inputId",null);
-        String inputText2 = auto.getString("inputId2","");
-        int input = auto.getInt("co",0);
-        Intent it_count = getIntent();
-        count = it_count.getIntExtra("count",0);
-        if (input == 0) {
-            if (inputText2 != null && (count % 2) == 1) {
-                super.onDestroy();
-                Log.d("Click", "onDestroy");
-                clearApplicationDate(getApplicationContext());
-            }
-        }
-    }
-    public static void clearApplicationDate(Context context){
-        File cache = context.getCacheDir();
-        File appDir = new File(cache.getParent());
-        if (appDir.exists()){
-            String[] children = appDir.list();
-            for (String list : children){
-                Log.d("캐시삭제",list);
-                if (list.equals("cache")) continue;
-                deleteDir(new File(appDir, list));
-            }
-        }
-    }
+//    @Override
+//    protected void onDestroy() {
+//        SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+//        String inputText = auto.getString("inputId",null);
+//        String inputText2 = auto.getString("inputId2","");
+//        int input = auto.getInt("co",0);
+//        Intent it_count = getIntent();
+//        count = it_count.getIntExtra("count",0);
+//        if (input == 0) {
+//            if (inputText2 != null && (count % 2) == 1) {
+//                super.onDestroy();
+//                Log.d("Click", "onDestroy");
+//                clearApplicationDate(getApplicationContext());
+//            }
+//        }
+//    }
+//    public static void clearApplicationDate(Context context){
+//        File cache = context.getCacheDir();
+//        File appDir = new File(cache.getParent());
+//        if (appDir.exists()){
+//            String[] children = appDir.list();
+//            for (String list : children){
+//                Log.d("캐시삭제",list);
+//                if (list.equals("cache")) continue;
+//                deleteDir(new File(appDir, list));
+//            }
+//        }
+//    }
     private static boolean deleteDir(File dir){
         if (dir != null && dir.isDirectory()){
             String[] children = dir.list();

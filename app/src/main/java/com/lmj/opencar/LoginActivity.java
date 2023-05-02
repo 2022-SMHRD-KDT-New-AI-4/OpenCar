@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // 자동 로그인 확인 즉, 캐시 저장 여부 확인
         if (loginId != null ){
-            Toast.makeText(LoginActivity.this, loginName+"님 자동 로그인", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(LoginActivity.this, loginName+"님 자동 로그인", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
             startActivity(intent);
             finish();
@@ -121,10 +121,10 @@ public class LoginActivity extends AppCompatActivity {
                                     autologin.putInt("co",1);
                                     autologin.putString("inputName",name);
                                     autologin.commit();
-                                    Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
-                                    //finish();
+                                    finish();
                                 // 자동로그인 미체크후 로그인
                                 }else if (response != null && ch_auto.isChecked()==false){
                                     SharedPreferences auto = getSharedPreferences("auto",Activity.MODE_PRIVATE);
@@ -134,11 +134,11 @@ public class LoginActivity extends AppCompatActivity {
                                     autologin.putString("inputName",name);
                                     autologin.putInt("co",0);
                                     autologin.commit();
-                                    Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(LoginActivity.this, loginId+"님 환영합니다", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     intent.putExtra("id",name);
                                     startActivity(intent);
-                                    //finish();
+                                    finish();
                                 }
                             }catch (JSONException e){
                                 Toast.makeText(getApplicationContext(), "Err onResponseJson: "+ e.toString(), Toast.LENGTH_LONG).show();
