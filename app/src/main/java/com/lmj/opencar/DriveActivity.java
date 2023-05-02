@@ -32,7 +32,7 @@ public class DriveActivity extends AppCompatActivity {
     RequestQueue queue;
     PortClass port;
     int count;
-
+//.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
