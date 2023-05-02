@@ -39,15 +39,15 @@
 
     <ImageView
         android:id="@+id/img_bell"
-        android:layout_width="40dp"
-        android:layout_height="0dp"
+        android:layout_width="34dp"
+        android:layout_height="25dp"
         android:layout_marginTop="5dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toStartOf="@+id/img_logout"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/alarm" />
 
     <ImageView
@@ -144,5 +144,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.94" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/open_car_logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
