@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -32,6 +34,7 @@ public class JoinActivity extends AppCompatActivity {
     PortClass port;
     Spinner sp_list;
     String[] items = {"차종","승용차","승합차","화물차","특수차"};
+
     String model;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class JoinActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,items);
         // ui와 연결
         sp_list.setAdapter(adapter);
+
 
         sp_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override // position 으로 몇번째 것이 선택되었는지 값을 넘겨준다.
@@ -81,11 +85,18 @@ public class JoinActivity extends AppCompatActivity {
                 }
             }
 
+
+
+
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
+
+
+
 
 
 
