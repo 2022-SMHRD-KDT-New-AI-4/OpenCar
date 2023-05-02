@@ -1,7 +1,9 @@
 package com.lmj.opencar;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Handler;
@@ -56,6 +58,7 @@ public class BackGroundService extends Service {
     // Service 관련 필드
     private boolean check; // 운전 시작 버튼 클릭시 true / 운전 완료 버튼 클릭시 false
     private String result; // 졸음운전 감지 ( 감지 완료 - ( 졸음 o - true , 졸음 x - false) 감지 실패 - 감지x ) 3가지 분류
+    private String loginId,dr_seq;
 
 
 
@@ -123,7 +126,12 @@ public class BackGroundService extends Service {
     public void requestBackground() {
         queue = Volley.newRequestQueue(getApplicationContext());
 
-        url = port.port + "random1/";
+        SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+        loginId = auto.getString("inputId",null);
+        dr_seq= auto.getString("dr_seq",null);
+
+
+        url = port.port + "sleep_sensors/android/"+loginId+"/"+dr_seq;
 
         request_background = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             // 서버로부터 문자열 데이터를 얻을 목적
