@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinnerArray">
+        <item>차종</item>
+        <item>승용차</item>
+        <item>승합차</item>
+        <item>화물차</item>
+        <item>특수차</item>
+    </string-array>
+</resources>
