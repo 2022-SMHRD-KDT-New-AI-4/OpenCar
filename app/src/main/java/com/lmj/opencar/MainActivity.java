@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public static RequestQueue queue;
     PortClass port;
     TextView tv_user;
-    ImageView img_logout,img_bell,iv_pattern,iv_start;
+    ImageView img_logout,img_bell,iv_pattern,iv_start,iv_manage;
     StringRequest request_start;
     int count;
     @Override
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         img_bell = findViewById(R.id.img_bell);
         iv_pattern = findViewById(R.id.iv_pattern);
         iv_start = findViewById(R.id.iv_start);
+        iv_manage = findViewById(R.id.iv_manage);
 
         queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -72,6 +73,16 @@ public class MainActivity extends AppCompatActivity {
 
         final String RID = nid;
         final String RID2 = inputName;
+
+        // 관리자페이지
+        iv_manage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(MainActivity.this,ManageActivity.class);
+                startActivity(it);
+
+            }
+        });
 
 
         // 로그 아웃 버튼 이벤트
