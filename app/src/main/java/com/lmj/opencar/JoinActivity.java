@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -121,6 +122,13 @@ public class JoinActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("오류",error.toString());
+                        Toast.makeText(JoinActivity.this, "중복된 아이디 입니다.", Toast.LENGTH_SHORT).show();
+                        id.setText("");
+                        pw.setText("");
+                        birth.setText("");
+                        name.setText("");
+                        
+
                     }
                 }){
                     @Nullable

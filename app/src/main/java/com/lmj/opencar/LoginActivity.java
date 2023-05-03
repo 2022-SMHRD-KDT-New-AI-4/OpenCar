@@ -112,6 +112,8 @@ public class LoginActivity extends AppCompatActivity {
                                 JSONObject jo = new JSONObject(response);
                                 String id = jo.getString("user_id");
                                 String name = jo.getString("user_name");
+
+
                                 // 자동로그인 체크후 로그인
                                 if (response != null && ch_auto.isChecked()==true){
                                     SharedPreferences auto = getSharedPreferences("auto",Activity.MODE_PRIVATE);
@@ -148,6 +150,9 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.e("error in response","Error :"+error.toString());
+                            Toast.makeText(LoginActivity.this, "아이디/패스워드를 확인하세요", Toast.LENGTH_SHORT).show();
+                            edt_id.setText("");
+                            edt_pw.setText("");
                         }
                     }){
                         @Override
