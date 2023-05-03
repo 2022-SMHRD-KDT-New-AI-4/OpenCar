@@ -57,6 +57,7 @@ public class BackGroundService extends Service {
 
     // Service 관련 필드
     private boolean check; // 운전 시작 버튼 클릭시 true / 운전 완료 버튼 클릭시 false
+    private boolean first;
     private String result; // 졸음운전 감지 ( 감지 완료 - ( 졸음 o - true , 졸음 x - false) 감지 실패 - 감지x ) 3가지 분류
     private String loginId,dr_seq;
 
@@ -74,6 +75,7 @@ public class BackGroundService extends Service {
 
         // 초기화
         check = true;
+        first = false;
         result = "false";
         backgroundThread = new backgroundThread();
         tone = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
@@ -148,30 +150,37 @@ public class BackGroundService extends Service {
                 } else if (response.equals("true")) {  // 졸음 감지
                     result = "true";
 
-                    Intent intent = new Intent();
-                    intent.setClassName("com.ksm.test_thread",
-                            "com.ksm.test_thread.PopupActivity");
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    if (!first) {
+                        // 졸음 감지 처음이면 알림창 이동
 
-                    tts = new TextToSpeech(BackGroundService.this, new TextToSpeech.OnInitListener() {
-                        @Override
-                        public void onInit(int i) {
-                            if( i == TextToSpeech.SUCCESS) {
-                                int result = tts.setLanguage(Locale.KOREAN);
+                        Intent intent = new Intent();
+                        intent.setClassName("com.ksm.test_thread",
+                                "com.ksm.test_thread.PopupActivity");
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        first = true;
+                    } else {
+                        // 두번째 부터 알림음만
+                        tts = new TextToSpeech(BackGroundService.this, new TextToSpeech.OnInitListener() {
+                            @Override
+                            public void onInit(int i) {
+                                if (i == TextToSpeech.SUCCESS) {
+                                    int result = tts.setLanguage(Locale.KOREAN);
 
-                                if (result == TextToSpeech.LANG_NOT_SUPPORTED || result == TextToSpeech.LANG_MISSING_DATA) {
-                                    Log.e("TTS","지원하지 않는 언어입니다");
+                                    if (result == TextToSpeech.LANG_NOT_SUPPORTED || result == TextToSpeech.LANG_MISSING_DATA) {
+                                        Log.e("TTS", "지원하지 않는 언어입니다");
+                                    } else {
+                                        tts.speak(wakeUp_alarms[random.nextInt(wakeUp_alarms.length)],
+                                                TextToSpeech.QUEUE_FLUSH, null, "uid");
+
+                                    }
                                 } else {
-                                    tts.speak(wakeUp_alarms[random.nextInt(wakeUp_alarms.length)],
-                                            TextToSpeech.QUEUE_FLUSH, null, "uid");
-
+                                    Log.e("TTS", "실패");
                                 }
-                            } else {
-                                Log.e("TTS","실패");
                             }
-                        }
-                    });
+                        });
+
+                    }
 
 
                 } else if (response.equals("감지x")) {
