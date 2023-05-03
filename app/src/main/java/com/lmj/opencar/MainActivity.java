@@ -158,12 +158,10 @@ public class MainActivity extends AppCompatActivity {
                             it_start.putExtra("dr_seq", response);
                             it_start.putExtra("inputText2",inputText);
 
-
-                            // Background 시작
-                            Intent backgroundService = new Intent(MainActivity.this,BackGroundService.class);
-                            backgroundService.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // 보내는 곳이 activity 아니면 Flags 필요
-                            backgroundService.putExtra("dr_seq", response);
-                            startService(backgroundService);
+                            SharedPreferences auto =  getSharedPreferences("auto", Activity.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = auto.edit();
+                            editor.putString("dr_seq", jo.getString("dr_seq"));
+                            editor.commit();
 
                             startActivity(it_start);
                              finish();
@@ -208,6 +206,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     });
+
+
 
     // 캐시 삭제하는 기능
 //    @Override

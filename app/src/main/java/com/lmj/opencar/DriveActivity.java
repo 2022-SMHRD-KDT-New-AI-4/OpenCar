@@ -12,6 +12,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -42,6 +43,8 @@ public class DriveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drive);
 
+
+
         btn_fin = findViewById(R.id.btn_fin);
 
         wv_camera = findViewById(R.id.wv_camera);
@@ -66,6 +69,13 @@ public class DriveActivity extends AppCompatActivity {
         Intent it_get = getIntent();
         String data = it_get.getStringExtra("dr_seq");
         int dr_seq = it_get.getIntExtra("data",0);
+        Log.d("DriveActivity",dr_seq+"");
+
+        // Background 시작
+        Intent backgroundService = new Intent(DriveActivity.this,BackGroundService.class);
+        backgroundService.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // 보내는 곳이 activity 아니면 Flags 필요
+        backgroundService.putExtra("dr_seq", dr_seq);
+        startService(backgroundService);
 
 
 
@@ -112,6 +122,13 @@ public class DriveActivity extends AppCompatActivity {
             }
         });
     }// onCreate 끝
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed()
+        Toast.makeText(this, "주행 완료 버튼을 눌러주세요", Toast.LENGTH_SHORT).show();
+    }
+
     // 캐시 삭제하는 기능
 //    @Override
 //    protected void onDestroy() {

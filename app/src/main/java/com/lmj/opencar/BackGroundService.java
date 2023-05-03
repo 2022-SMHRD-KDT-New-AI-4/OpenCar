@@ -95,7 +95,6 @@ public class BackGroundService extends Service {
         - startService()로 서비스를 호출되면 stopSelf(),  stopService() 호출될 때 까지 계속 살아있다.
         */
 
-        dr_seq = intent.getStringExtra("dr_seq");
         return START_REDELIVER_INTENT;
         /* 리턴값 메소드
          * 1. START_STICKY : Service 강제 종료시 Service를 재시작 / intent 값을 null로 초기화
@@ -130,6 +129,7 @@ public class BackGroundService extends Service {
 
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         loginId = auto.getString("inputId",null);
+        dr_seq = auto.getString("dr_seq",null);
 
 
 
