@@ -167,17 +167,25 @@ public class PatternActivity extends AppCompatActivity {
                 try {
                     JSONObject jo = new JSONObject(response);
 
-                    // json 가져오기 -----> ★★★★
-                    int driveTime = Integer.parseInt(jo.getString("drive_time"));
-                    int slTime = Integer.parseInt(jo.getString("sl_time"));
-                    int freq = Integer.parseInt(jo.getString("freq"));
+                    if(jo.length() !=0){
+                        // json 가져오기 -----> ★★★★
+                        int driveTime = Integer.parseInt(jo.getString("drive_time"));
+                        int slTime = Integer.parseInt(jo.getString("sl_time"));
+                        int freq = Integer.parseInt(jo.getString("freq"));
 
 
+                        tv_ticheck.setText(jo.getString("day")); // 최근날짜
+                        tv_drhour.setText("◾   주행시간 "+driveTime/60+"시간 "+driveTime%60+"분");
+                        tv_slcheck.setText("◾   주행시작 "+slTime/60+"시간 "+slTime%60+"분 후 졸음감지");
+                        tv_freq.setText("◾   총 "+freq+"회 졸음감지");
+                    } else {
+                        tv_ticheck.setText("");
+                        tv_drhour.setText("◾   주행시간 정보가 없습니다.");
+                        tv_slcheck.setText("◾   주행시작 정보가 없습니다.");
+                        tv_freq.setText("◾   졸음감지 정보가 없습니다.");
+                    }
 
-                    tv_ticheck.setText(jo.getString("day")); // 최근날짜
-                    tv_drhour.setText("◾   주행시간 "+driveTime/60+"시간 "+driveTime%60+"분");
-                    tv_slcheck.setText("◾   주행시작 "+slTime/60+"시간 "+slTime%60+"분 후 졸음감지");
-                    tv_freq.setText("◾   총 "+freq+"회 졸음감지");
+
 
 
 
@@ -214,8 +222,14 @@ public class PatternActivity extends AppCompatActivity {
                     JSONObject jo = new JSONObject(response);
 
                     // json 가져오기 -----> ★★★★
-                    float cnt = Float.parseFloat(jo.getJSONObject("0").getString("monthavg")); // 평균
-                    tv_monavg.setText(cnt+"회");
+                    String monthavg = jo.getJSONObject("0").getString("monthavg");
+
+                    if(!(monthavg.equals("None"))){
+                        float cnt = Float.parseFloat(monthavg); // 평균
+                        tv_monavg.setText(cnt+"회");
+                    }
+
+
 
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "Err onResponseJson: " + e.toString(), Toast.LENGTH_LONG).show();
@@ -256,8 +270,10 @@ public class PatternActivity extends AppCompatActivity {
 
                     if(times[1] != 0){
                         tv_sltime.setText(times[0]+"시와 "+times[1]+"시에 많이 졸아요");
-                    } else {
+                    } else if((times[0] != 0)) {
                         tv_sltime.setText(times[0]+"시에 많이 졸아요");
+                    } else {
+                        tv_sltime.setText("");
                     }
 
                 } catch (JSONException e) {
@@ -555,6 +571,8 @@ public class PatternActivity extends AppCompatActivity {
                     String re = "낮아요";
                     JSONObject jo = new JSONObject(response);
 
+
+
                     // 1~24시 추출
                     // json 가져오기 -----> ★★★★★★★★★★여기 수정해야함!!!!!!!!!!!
                     for (int j = 0; j<jo.length();j++){
@@ -567,31 +585,34 @@ public class PatternActivity extends AppCompatActivity {
 
                     BarData data = bc.createBarData(map);
 
+                    if(jo.length()!=0){
+                        String dat = data.getDataSets().toString();
+                        String[] arr = dat.split(",");
 
-                    String dat = data.getDataSets().toString();
-                    String[] arr = dat.split(",");
+
+                        int idx = arr[8].indexOf("y");
+                        int idx_1 = arr[8].indexOf("]");
+                        Log.d("hereherearr","arr8:"+arr[8].substring(idx+3,idx_1-1));
+                        int idx2 = arr[7].indexOf("y");
+                        int idx2_1 = arr[7].indexOf("E");
+                        Log.d("hereherearr","arr7:"+arr[7].substring(idx2+3,idx2_1-1));
+
+                        float m5 = Float.parseFloat(arr[8].substring(idx+3,idx_1-1));
+                        float m4 = Float.parseFloat(arr[7].substring(idx2+3,idx2_1-1));
+
+                        if(m4<m5){
+                            re = "높아요";
+                        } else if (m4==m5){
+                            re = "같아요";
+                        }
 
 
-                    int idx = arr[8].indexOf("y");
-                    int idx_1 = arr[8].indexOf("]");
-                    Log.d("hereherearr","arr8:"+arr[8].substring(idx+3,idx_1-1));
-                    int idx2 = arr[7].indexOf("y");
-                    int idx2_1 = arr[7].indexOf("E");
-                    Log.d("hereherearr","arr7:"+arr[7].substring(idx2+3,idx2_1-1));
 
-                    float m5 = Float.parseFloat(arr[8].substring(idx+3,idx_1-1));
-                    float m4 = Float.parseFloat(arr[7].substring(idx2+3,idx2_1-1));
-
-                    if(m4<m5){
-                        re = "높아요";
-                    } else if (m4==m5){
-                        re = "같아요";
+                        tv_month.setText("지난 달에 비해 졸음빈도가 "+re);
+                    } else {
+                        tv_month.setText("");
                     }
 
-
-
-
-                    tv_month.setText("지난 달에 비해 졸음빈도가 "+re);
 
 
 
