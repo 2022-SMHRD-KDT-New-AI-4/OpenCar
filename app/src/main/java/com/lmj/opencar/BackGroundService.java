@@ -74,6 +74,7 @@ public class BackGroundService extends Service {
         */
 
         // 초기화
+        random = new Random();
         check = true;
         first = false;
         result = "false";
@@ -170,6 +171,8 @@ public class BackGroundService extends Service {
                                     if (result == TextToSpeech.LANG_NOT_SUPPORTED || result == TextToSpeech.LANG_MISSING_DATA) {
                                         Log.e("TTS", "지원하지 않는 언어입니다");
                                     } else {
+                                        wakeUp_alarms = new String[]
+                                                { "또 졸고 있네요","계속 졸지 마세요","왜 또 졸아요?","그만 자세요","정신차려"};
                                         tts.speak(wakeUp_alarms[random.nextInt(wakeUp_alarms.length)],
                                                 TextToSpeech.QUEUE_FLUSH, null, "uid");
 

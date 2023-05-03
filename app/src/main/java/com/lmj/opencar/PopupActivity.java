@@ -73,9 +73,9 @@ public class PopupActivity extends AppCompatActivity {
         });
 
         //데이터 가져오기
-        Intent intent = getIntent();
-        String data = intent.getStringExtra("data");
-        txtText.setText(data);
+//        Intent intent = getIntent();
+//        String data = intent.getStringExtra("data");
+//        txtText.setText(data);
 
 
         //확인 버튼 클릭
