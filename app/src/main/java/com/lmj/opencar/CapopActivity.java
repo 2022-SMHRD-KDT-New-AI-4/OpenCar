@@ -66,7 +66,6 @@ public class CapopActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putExtra("result", "Close Popup");
                 setResult(RESULT_OK, intent);
-
                 Intent it_main = new Intent(CapopActivity.this,MainActivity.class);
                 startActivity(it_main);
                 //액티비티(팝업) 닫기
@@ -147,6 +146,8 @@ public class CapopActivity extends AppCompatActivity {
                 try {
                     Thread.sleep(1000);
                     if(i==0){
+                        Intent it_main = new Intent(CapopActivity.this,MainActivity.class);
+                        startActivity(it_main);
                         finish();
                     }
                 } catch (InterruptedException e) {
