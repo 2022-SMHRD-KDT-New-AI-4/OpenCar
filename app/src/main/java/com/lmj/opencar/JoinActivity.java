@@ -115,6 +115,7 @@ public class JoinActivity extends AppCompatActivity {
 
                         Intent it_login = new Intent(JoinActivity.this, LoginActivity.class);
                         startActivity(it_login);
+                        finish();
                     }
                 }, new Response.ErrorListener() {
                     @Override

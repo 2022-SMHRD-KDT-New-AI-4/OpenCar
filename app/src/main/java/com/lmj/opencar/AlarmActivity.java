@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -32,6 +34,7 @@ public class AlarmActivity extends AppCompatActivity {
 
     AlarmAdapter adapter;
     PortClass port;
+    String loginId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +45,10 @@ public class AlarmActivity extends AppCompatActivity {
 
         // 통로는 한개만 있어두 됨
         queue = Volley.newRequestQueue(getApplicationContext());
+        SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+        loginId = auto.getString("inputId",null); // 자동 로그인 캐시
 
-        String url = port.port+"alarm_select/"+"test1";
+        String url = port.port+"alarm_select/"+loginId;
 
 
         request_alarm = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
