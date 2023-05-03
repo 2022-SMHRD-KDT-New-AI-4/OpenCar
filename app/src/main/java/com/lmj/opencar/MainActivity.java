@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.clear();
                 editor.commit();
                 Toast.makeText(MainActivity.this, "로그아웃", Toast.LENGTH_SHORT).show();
-                //finish();
+                finish();
             }
         });
 

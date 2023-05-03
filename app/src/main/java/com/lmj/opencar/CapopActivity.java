@@ -67,6 +67,8 @@ public class CapopActivity extends AppCompatActivity {
                 intent.putExtra("result", "Close Popup");
                 setResult(RESULT_OK, intent);
 
+                Intent it_main = new Intent(CapopActivity.this,MainActivity.class);
+                startActivity(it_main);
                 //액티비티(팝업) 닫기
                 finish();
 
