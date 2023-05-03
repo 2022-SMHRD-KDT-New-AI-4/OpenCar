@@ -126,7 +126,7 @@ public class DriveActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed()
-        Toast.makeText(this, "주행 완료 버튼을 눌러주세요", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "감지 중이라 뒤로가기가 작동하지 않습니다. \n 주행 완료 버튼을 눌러주세요", Toast.LENGTH_SHORT).show();
     }
 
     // 캐시 삭제하는 기능
