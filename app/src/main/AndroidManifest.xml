@@ -39,7 +39,7 @@
             android:exported="false" />
         <activity
             android:name=".PopupActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.MyDialog" />
         <activity
             android:name=".poptestActivity"

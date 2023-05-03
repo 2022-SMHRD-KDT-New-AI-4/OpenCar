@@ -154,8 +154,8 @@ public class BackGroundService extends Service {
                         // 졸음 감지 처음이면 알림창 이동
 
                         Intent intent = new Intent();
-                        intent.setClassName("com.ksm.test_thread",
-                                "com.ksm.test_thread.PopupActivity");
+                        intent.setClassName("com.lmj.opencar",
+                                "com.lmj.opencar.PopupActivity"); // 패키지 이름 ksm --> lmj로 일단 바꿔둠
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         first = true;
@@ -235,10 +235,10 @@ public class BackGroundService extends Service {
 
                     if (result.equals("true")) { // 졸음이 감지되면
                         tone.startTone(ToneGenerator.TONE_DTMF_S, 10000);
-                        Log.d("TestService", "15초 휴식...");
+                        Log.d("hereherehere", "15초 휴식...");
 
                         Thread.sleep(15000); // 15초간 스레드 멈춤
-                        Log.d("TestService", "15초 끝...");
+                        Log.d("hereherehere", "15초 끝...");
                     }
 
 
