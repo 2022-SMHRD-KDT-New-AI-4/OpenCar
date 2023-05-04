@@ -43,7 +43,7 @@ public class HoriBarChartClass {
         axisLeft.setDrawGridLines(false);
         axisLeft.setDrawAxisLine(false);
         axisLeft.setAxisMinimum(0f); // 최솟값
-        axisLeft.setAxisMaximum(30f); // 최댓값
+        axisLeft.setAxisMaximum(60f); // 최댓값
         axisLeft.setGranularity(1f); // 값만큼 라인선 설정
         axisLeft.setDrawLabels(false); // label 삭제
 
