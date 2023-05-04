@@ -29,12 +29,15 @@ public class PopupActivity extends AppCompatActivity {
     Button btn_ok;
     TextToSpeech tts;
     //ToneGenerator tone;
+    boolean isAct;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //타이틀바 없애기
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_popup);
+
+        isAct = true;
 
         txtText = findViewById(R.id.tv_alert);
         btn_ok = findViewById(R.id.btn_next);
@@ -47,7 +50,7 @@ public class PopupActivity extends AppCompatActivity {
                 if( i == TextToSpeech.SUCCESS) {
                     int result = tts.setLanguage(Locale.KOREAN);
                     AudioManager audioManager = (AudioManager) getSystemService(PopupActivity.this.AUDIO_SERVICE);
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 1, 0);
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 9, 0);
 
                     if (result == TextToSpeech.LANG_NOT_SUPPORTED || result == TextToSpeech.LANG_MISSING_DATA) {
                         Log.e("TTS","지원하지 않는 언어입니다");
@@ -89,6 +92,7 @@ public class PopupActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putExtra("result", "Close Popup");
                 setResult(RESULT_OK, intent);
+                isAct = false;
 
                 //액티비티(팝업) 닫기
                 finish();
@@ -164,23 +168,27 @@ public class PopupActivity extends AppCompatActivity {
             // 10에서 0까지 감소하는 숫자 설정!
             for (int i = 10; i>=0; i--){
 
-                Message message = new Message();
+                if(isAct){
+                    Message message = new Message();
 
-                message.arg1 = i;
+                    message.arg1 = i;
 
-                message.obj = tv;
+                    message.obj = tv;
 
-                timerHandler.sendMessage(message);
+                    timerHandler.sendMessage(message);
 
-                try {
-                    Thread.sleep(1000);
-                    if(i==0){
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://map.kakao.com/link/to/2009536799")));
-                        finish();
+                    try {
+                        Thread.sleep(1000);
+                        if(i==0){
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://map.kakao.com/link/to/2009536799")));
+                            finish();
+                        }
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
                 }
+
+
 
             }
             // 그 숫자를 tv_timer에 반영!

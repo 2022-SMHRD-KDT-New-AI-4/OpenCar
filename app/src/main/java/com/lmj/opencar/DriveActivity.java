@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -101,6 +102,8 @@ public class DriveActivity extends AppCompatActivity {
                         count = 3;
                         intent.putExtra("count",count);
                         startActivity(intent);
+
+                        wv_camera.loadUrl("javascript:window.close();");
                         finish();
                     }
                 }, new Response.ErrorListener() {
