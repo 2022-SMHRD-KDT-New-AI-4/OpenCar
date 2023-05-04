@@ -46,6 +46,8 @@ public class PopupActivity extends AppCompatActivity {
             public void onInit(int i) {
                 if( i == TextToSpeech.SUCCESS) {
                     int result = tts.setLanguage(Locale.KOREAN);
+                    AudioManager audioManager = (AudioManager) getSystemService(PopupActivity.this.AUDIO_SERVICE);
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 9, 0);
 
                     if (result == TextToSpeech.LANG_NOT_SUPPORTED || result == TextToSpeech.LANG_MISSING_DATA) {
                         Log.e("TTS","지원하지 않는 언어입니다");
