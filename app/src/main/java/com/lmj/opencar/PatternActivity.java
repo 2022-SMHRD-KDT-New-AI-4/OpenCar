@@ -168,8 +168,12 @@ public class PatternActivity extends AppCompatActivity {
                     JSONObject jo = new JSONObject(response);
 
                     if(jo.length() !=0){
+                        int driveTime = 0;
                         // json 가져오기 -----> ★★★★
-                        int driveTime = Integer.parseInt(jo.getString("drive_time"));
+                        String drtime = jo.getString("drive_time");
+                        if(!drtime.equals("null")){
+                            driveTime = Integer.parseInt(jo.getString("drive_time"));
+                        }
                         int slTime = Integer.parseInt(jo.getString("sl_time"));
                         int freq = Integer.parseInt(jo.getString("freq"));
 
