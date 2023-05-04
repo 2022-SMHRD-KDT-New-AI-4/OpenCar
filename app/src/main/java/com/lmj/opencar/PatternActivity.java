@@ -505,9 +505,9 @@ public class PatternActivity extends AppCompatActivity {
 //                    Log.d("hereherehori","model:"+model);
 
                     if(my>=model){
-                        ref = Math.round(my-model);
+                        ref = (float) (Math.round((my-model)* 100) / 100.0);
                     } else if(my<model) {
-                        ref = Math.round(model-my);
+                        ref = (float)(Math.round((model-my)* 100) / 100.0);
                         fe="덜";
                     }
 
