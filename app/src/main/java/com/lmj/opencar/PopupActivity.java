@@ -176,6 +176,7 @@ public class PopupActivity extends AppCompatActivity {
                     Thread.sleep(1000);
                     if(i==0){
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://map.kakao.com/link/to/2009536799")));
+                        finish();
                     }
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
