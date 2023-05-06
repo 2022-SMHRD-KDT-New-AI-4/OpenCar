@@ -180,7 +180,9 @@ public class PatternActivity extends AppCompatActivity {
 
                         tv_ticheck.setText(jo.getString("day")); // 최근날짜
                         tv_drhour.setText("◾   주행시간 "+driveTime/60+"시간 "+driveTime%60+"분");
+//                        tv_drhour.setText("◾   주행시간 "+driveTime/3600+"시간 "+(driveTime%3600)/60+"분" + driveTime%60+"초");
                         tv_slcheck.setText("◾   주행시작 "+slTime/60+"시간 "+slTime%60+"분 후 졸음감지");
+//                        tv_slcheck.setText("◾   주행시작 "+slTime/3600+"시간 "+(slTime%3600)/60+"분" + driveTime%60+"초 후 졸음감지");
                         tv_freq.setText("◾   총 "+freq+"회 졸음감지");
                     } else {
                         tv_ticheck.setText("");
