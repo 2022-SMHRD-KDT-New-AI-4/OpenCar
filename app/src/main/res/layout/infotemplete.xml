@@ -37,6 +37,7 @@
                 android:paddingTop="20dp"
                 android:paddingBottom="10dp"
                 android:text="◾   주행시간 0시간 00분"
+                android:fontFamily="@font/scdream4"
                 android:textColor="#1E1E1E"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"
                 android:paddingBottom="20dp"
-
+                android:fontFamily="@font/scdream4"
                 android:text="◾   총 0번 졸음감지"
 
                 android:textColor="#1E1E1E"
@@ -65,7 +66,7 @@
                 android:paddingLeft="30dp"
                 android:paddingBottom="10dp"
                 android:text="◾  주행시작 0분 후 졸음감지"
-
+                android:fontFamily="@font/scdream4"
                 android:textColor="#1E1E1E"
                 android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +79,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="30dp"
             android:paddingTop="10dp"
-
+            android:fontFamily="@font/scdream5"
             android:paddingRight="20dp"
             android:paddingBottom="5dp"
             android:text="2020.03.21"
@@ -95,7 +96,7 @@
             android:paddingTop="30dp"
             android:text="주행 정보"
             android:textColor="#1E1E1E"
-
+            android:fontFamily="@font/scdream6"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

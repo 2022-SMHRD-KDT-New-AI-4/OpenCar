@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lmj.myopen0419.R;
+import com.lmj.opencar.R;
 
 import java.util.ArrayList;
 

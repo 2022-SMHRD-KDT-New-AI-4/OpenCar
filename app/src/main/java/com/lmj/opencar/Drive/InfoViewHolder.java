@@ -6,7 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lmj.myopen0419.R;
+import com.lmj.opencar.R;
 
 public class InfoViewHolder extends RecyclerView.ViewHolder {
     TextView tv_temhour,tv_temfreq,tv_temcheck,tv_temticheck;

@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="최근 주행 정보"
+        android:fontFamily="@font/scdream6"
         android:textColor="#232222"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
