@@ -1,12 +1,15 @@
 package com.lmj.opencar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +51,7 @@ public class PatternActivity extends AppCompatActivity {
     TextView tv_monavg,tv_month,tv_model,tv_sltime,tv_ticheck,tv_slcheck;
     TextView tv_drhour, tv_freq, tv_modelcheck;
     String loginId;
+    ConstraintLayout info;
 
 
     @Override
@@ -71,6 +75,16 @@ public class PatternActivity extends AppCompatActivity {
         tv_drhour = findViewById(R.id.tv_drhour);
         tv_freq = findViewById(R.id.tv_freq);
         tv_modelcheck = findViewById(R.id.tv_modelcheck);
+        info = findViewById(R.id.info);
+
+        // 최근주행정보목록 넘어가기
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(PatternActivity.this,MyinfoActivity.class));
+
+            }
+        });
 
         SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
         loginId = auto.getString("inputId",null); // 자동 로그인 캐시

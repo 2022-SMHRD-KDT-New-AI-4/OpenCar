@@ -1,5 +1,7 @@
 package com.lmj.opencar;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -30,6 +32,7 @@ public class MyinfoActivity extends AppCompatActivity {
     StringRequest request_driveinfo;
     InfoAdapter adapter;
     PortClass port;
+    String loginId;
 
 
     @Override
@@ -38,12 +41,15 @@ public class MyinfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_myinfo);
         recyclerView = findViewById(R.id.rv_drive);
 
+        SharedPreferences auto = getSharedPreferences("auto", Activity.MODE_PRIVATE);
+        loginId = auto.getString("inputId",null); // 자동 로그인 캐시
+
         // 통로는 한개만 있어두 됨
         queue = Volley.newRequestQueue(getApplicationContext());
 
 
         // volley 주행 날짜 & 주행시간 & 주행시작 후 첫 번째 졸음감지 & 최근 주행 졸음 빈도수
-        String url = port.port+"my_drive_info/"+"test1"; // 아이디 수정필요
+        String url = port.port+"my_drive_seven/"+loginId; // 아이디 수정필요
 
         request_driveinfo = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -52,21 +58,20 @@ public class MyinfoActivity extends AppCompatActivity {
                 try {
                     JSONObject jo = new JSONObject(response);
 
-                    // json 가져오기 -----> ★★★★
-                    int driveTime = Integer.parseInt(jo.getString("drive_time"));
-                    int slTime = Integer.parseInt(jo.getString("sl_time"));
-                    int freq = Integer.parseInt(jo.getString("freq"));
 
                     // 여기서 정보 가져오기
 //                    for (int i = 0; i<jo.length();i++){
+    //                    String drtime = jo.getJSONObject(Integer.toString(i)).getString("drive_time");
+    //                    if(!drtime.equals("null")){
+    //                        driveTime = Integer.parseInt(drtime);
+    //                    }
+
+    //                    int slTime = Integer.parseInt(jo.getJSONObject(Integer.toString(i)).getString("sl_time"));
+    //                    int freq = Integer.parseInt(jo.getJSONObject(Integer.toString(i)).getString("freq"));
 //
-//                        data.add(new AlarmVO(jo.getJSONObject(Integer.toString(i)).getString("MSG"),jo.getJSONObject(Integer.toString(i)).getString("send_Time")));
+//                        data.add(new InfoVO(jo.getJSONObject(Integer.toString(i)).getString("day"),"◾   주행시간 "+driveTime/3600+"시간 "+(driveTime%3600)/60+"분" + driveTime%60+"초","◾   주행시작 "+slTime/3600+"시간 "+(slTime%3600)/60+"분" + driveTime%60+"초 후 졸음감지","◾   총 "+freq+"회 졸음감지"));
 //                    }
 
-//                    tv_ticheck.setText(jo.getString("day")); // 최근날짜
-//                    tv_drhour.setText("◾   주행시간 "+driveTime/60+"시간 "+driveTime%60+"분");
-//                    tv_slcheck.setText("◾   주행시작 "+slTime/60+"시간 "+slTime%60+"분 후 졸음감지");
-//                    tv_freq.setText("◾   총 "+freq+"회 졸음감지");
 
 
                 } catch (JSONException e) {
@@ -87,10 +92,8 @@ public class MyinfoActivity extends AppCompatActivity {
         queue.add(request_driveinfo);
 
 
-                data.add(new InfoVO("test","◾   주행시간 00시간 00분 00초","◾   주행시작 60시간 60분 후 졸음감지","◾   총 0회 졸음감지"));
-                data.add(new InfoVO("test","◾   주행시간 00시간 00분 00초","◾   주행시작 60시간 60분 후 졸음감지","◾   총 0회 졸음감지"));
-//        data.add(new AlarmVO("졸음운전이 감지되었습니다.","2020.03.21 10:40:00"));
-//        data.add(new AlarmVO("졸음운전 주의시간 입니다.","2020.03.22 11:40:00"));
+//                data.add(new InfoVO("test","◾   주행시간 00시간 00분 00초","◾   주행시작 60시간 60분 후 졸음감지","◾   총 0회 졸음감지"));
+//                data.add(new InfoVO("test","◾   주행시간 00시간 00분 00초","◾   주행시작 60시간 60분 후 졸음감지","◾   총 0회 졸음감지"));
 
 
 
