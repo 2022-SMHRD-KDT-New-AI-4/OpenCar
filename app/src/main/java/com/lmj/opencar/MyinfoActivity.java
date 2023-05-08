@@ -57,20 +57,21 @@ public class MyinfoActivity extends AppCompatActivity {
 
                 try {
                     JSONObject jo = new JSONObject(response);
+                    int driveTime = 0;
 
 
                     // 여기서 정보 가져오기
-//                    for (int i = 0; i<jo.length();i++){
-    //                    String drtime = jo.getJSONObject(Integer.toString(i)).getString("drive_time");
-    //                    if(!drtime.equals("null")){
-    //                        driveTime = Integer.parseInt(drtime);
-    //                    }
+                    for (int i = 0; i<jo.length();i++){
+                        String drtime = jo.getJSONObject(Integer.toString(i)).getString("drive_time");
+                        if(!drtime.equals("null")){
+                            driveTime = Integer.parseInt(drtime);
+                        }
 
-    //                    int slTime = Integer.parseInt(jo.getJSONObject(Integer.toString(i)).getString("sl_time"));
-    //                    int freq = Integer.parseInt(jo.getJSONObject(Integer.toString(i)).getString("freq"));
-//
-//                        data.add(new InfoVO(jo.getJSONObject(Integer.toString(i)).getString("day"),"◾   주행시간 "+driveTime/3600+"시간 "+(driveTime%3600)/60+"분" + driveTime%60+"초","◾   주행시작 "+slTime/3600+"시간 "+(slTime%3600)/60+"분" + driveTime%60+"초 후 졸음감지","◾   총 "+freq+"회 졸음감지"));
-//                    }
+                        int slTime = Integer.parseInt(jo.getJSONObject(Integer.toString(i)).getString("sl_time"));
+                        int freq = Integer.parseInt(jo.getJSONObject(Integer.toString(i)).getString("freq"));
+
+                        data.add(new InfoVO(jo.getJSONObject(Integer.toString(i)).getString("day"),"◾   주행시간 "+driveTime/3600+"시간 "+(driveTime%3600)/60+"분" + driveTime%60+"초","◾   주행시작 "+slTime/3600+"시간 "+(slTime%3600)/60+"분" + driveTime%60+"초 후 졸음감지","◾   총 "+freq+"회 졸음감지"));
+                    }
 
 
 
