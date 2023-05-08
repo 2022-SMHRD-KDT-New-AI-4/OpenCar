@@ -239,7 +239,7 @@ public class BackGroundService extends Service {
                     Thread.sleep(500);
 
                     if (result.equals("true")) { // 졸음이 감지되면
-                        tone.startTone(ToneGenerator.TONE_DTMF_S, 10000);
+                        tone.startTone(ToneGenerator.TONE_DTMF_S, 3000);
                         Log.d("hereherehere", "15초 휴식...");
 
                         Thread.sleep(15000); // 15초간 스레드 멈춤

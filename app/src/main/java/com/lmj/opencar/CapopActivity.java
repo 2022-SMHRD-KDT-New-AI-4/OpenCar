@@ -47,7 +47,7 @@ public class CapopActivity extends AppCompatActivity {
                     } else {
                         tts.speak(tv_caution.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "uid");
                         // btn1.setText("말하는중");
-                        tone.startTone(ToneGenerator.TONE_DTMF_S, 5000);
+                        tone.startTone(ToneGenerator.TONE_DTMF_S, 3000);
                         // Thread 생성
                         TimerThread thread = new TimerThread(btn_ck);
                         // Thread 실행
