@@ -166,7 +166,7 @@ public class PopupActivity extends AppCompatActivity {
         public void run() {
 
             // 10에서 0까지 감소하는 숫자 설정!
-            for (int i = 7; i>=0; i--){
+            for (int i = 5; i>=0; i--){
 
                 if(isAct){
                     Message message = new Message();
