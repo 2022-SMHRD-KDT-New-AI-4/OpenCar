@@ -99,7 +99,7 @@
 ![주행시작](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/cfad7087-d759-4ac2-8cef-9465cb35b00d)
 <br>
 
-### 패턴분
+### 패턴분석
 ![패턴분석](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/19d3a1c9-308c-451a-9049-87aa1d9e59fa)
 <br>
 
@@ -115,20 +115,19 @@
     <td align="center"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5n8I-GLiz8TkHtodyMumkDEU0UStEiNQKgA&usqp=CAU" width="100" height="100"/></td>
     <td align="center"><img src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MTBfMTMy/MDAxNTk0MzczNDk5MzI4.P7hqx3C68b2SxkwsxEg2j_6d6oH7sVm70bLQbfnyCEQg.iZERr5L2sHzB6gaM_W5fA20FWHvKghKHxXdJXpPDYzYg.JPEG.dlqls01/R720x0.jpg?type=w800" width="100" height="100"/></td>
     <td align="center"><img src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MTBfMjkg/MDAxNTk0MzczNDk4OTkx.l7k-2j9Jj-3g-isb9PJY6VfpCmPuYrTIko4eyn99EGwg.ZSUkA5SfHB4eaF9NcaUoCBbNbmRwqKb5B-Eg2wQwWAMg.JPEG.dlqls01/i15056224960.jpg?type=w800" width="100" height="100"/></td>
-    <td align="center"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2rqOJyXgtCcx_C30hcZcUbedhsI2KO27_qA&usqp=CAU" width="100" height="100"/></td>
   </tr>
   <tr>
-    <td align="center"><strong>이슬이</strong></td>
     <td align="center"><strong>송소라</strong></td>
     <td align="center"><strong>이민지</strong></td>
-    <td align="center"><strong>강정진</strong></td>
-    <td align="center"><strong>유성훈</strong></td>
-    <td align="center"><strong>김응진</strong></td>
+    <td align="center"><strong>이슬이</strong></td>
+    <td align="center"><strong>김선미</strong></td>
+    <td align="center"><strong>김대윤</strong></td>
   </tr>
   <tr>
     <td align="center">
-        <b>마이페이지</b><br>
-        <b>리뷰페이지</b>
+        <b>PM - 산출문서 관리</b><br>
+        <b>모델링 - 모델 설계 변수 선정 및 학습, CNN 모델 구현 및 학습, 눈 검출 및 판별 알고리즘 개발</b>
+        <b>안드로이드 - UI/UX 디자인</b>
     </td>
     <td align="center">
         <b>예약페이지</b><br>
