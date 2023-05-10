@@ -123,7 +123,7 @@
     <td align="center"><strong>김대윤</strong></td>
   </tr>
   <tr>
-    <td align="center">
+    <td>
         <b>PM</b><br>
         <b>-산출문서 관리</b>
         <b>모델링</b><br>
@@ -150,7 +150,7 @@
         <b>크롤링</b><br>
         <b>DB관리</b><br>
         <b>ID/PW 찾기</b>
-   
+    </td>   
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/sora3601" target='_blank'>github</a></td>
