@@ -113,7 +113,7 @@
     <td align="center"><img src="https://item.kakaocdn.net/do/d274546cd441d60874f374b44122fd4b617ea012db208c18f6e83b1a90a7baa7" width="100" height="100"/></td>
     <td align="center"><img src="https://item.kakaocdn.net/do/19b5c174f8af8a3b6cd4d191d0d0e732617ea012db208c18f6e83b1a90a7baa7" width="100" height="100"/></td>
     <td align="center"><img src="https://item.kakaocdn.net/do/f4c0396e7f245b8c805f706ad70fed42617ea012db208c18f6e83b1a90a7baa7" width="100" height="100"/></td>
-    <td align="center"><img src="https://item.kakaocdn.net/do/ffd6fd4ddd308f7b129cf04c5ca71ada617ea012db208c18f6e83b1a90a7baa7" width="100" height="100"/></td>
+    <td align="center"><img src="https://item.kakaocdn.net/do/ccbb46b928e6355184c6a0fdb1709838617ea012db208c18f6e83b1a90a7baa7" width="100" height="100"/></td>
     <td align="center"><img src="https://item.kakaocdn.net/do/de5248e20e51a0eaa623854bed516f1b617ea012db208c18f6e83b1a90a7baa7" width="100" height="100"/></td>
   </tr>
   <tr>
