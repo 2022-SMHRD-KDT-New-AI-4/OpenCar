@@ -1,5 +1,5 @@
 # 📎 Dlib과 CNN을 활용한 졸음운전 방지 서비스(팀명: 여기있소라)
-<p align="center"><img src="https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/354b6f2f-e279-490b-98df-d401c117fc34">
+<p align="center"><img src="https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/366efe80-e061-4dce-a12c-313c8e5879de">
 
 ## 👀 서비스 소개
 * 서비스명:  Dlib과 CNN을 활용한 졸음운전 방지 서비스
@@ -92,7 +92,7 @@
 <br>
 
 ### 메인페이지
-![메인페이지](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/b20456d0-5547-48a5-b6c6-02050718344f)
+![메인페이지](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/2754c3c9-a38e-4ea5-9eee-ddadac385b91)
 <br>
 
 ### 주행시작
