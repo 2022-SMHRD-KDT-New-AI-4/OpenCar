@@ -140,22 +140,35 @@
         <b>- 패턴분석(대시보드) 구현</b><br>
         <b>- 졸음알림내역 및 팝업창 구현</b><br>
         <b>- UI/UX 디자인</b><br>
-        <b>[Database]</b><br>
+        <b>[데이터베이스]</b><br>
         <b>- 테이블 생성 및 SQL문 작성</b>
     </td>
-    <td align="center">
-        <b>예약페이지</b><br>
-        <b>센터리스트</b><br>
-        <b>메시지창</b>
+    <td>
+        <b>[모델링]</b><br>
+        <b>- 환경 구축 및 학습</b><br>
+        <b>[안드로이드]</b><br>
+        <b>- 경고알림 서비스 구현</b><br>
+        <b>[Raspberry  Pi]</b><br>
+        <b>- Flask 딥러닝 서버 구축</b><br>
+        <b>- WebCam 연동</b>
     </td>
-    <td align="center">
-        <b>KakaoMap API</b><br>
-        <b>로그인/회원가입</b>
+    <td>
+        <b>[모델링]</b><br>
+        <b>- 모델 설계 변수 선정 및 학습</b><br>
+        <b>[안드로이드]</b><br>
+        <b>- 주행시작 및 완료 기능 구현</b><br>
+        <b>background thread Service</b><br>
+        <b>[Flask]</b><br>
+        <b>- Flask 서버 구축</b><br>
+        <b>- oracle DB 연동 및 중계 서버 구축</b><br>
     </td>
-    <td align="center">
-        <b>크롤링</b><br>
-        <b>DB관리</b><br>
-        <b>ID/PW 찾기</b>
+    <td>
+        <b>[안드로이드]</b><br>
+        <b>- 자동/일반 로그인</b><br>
+        <b>- 회원가입 기능 구현</b><br>
+        <b>- 카카오 로그인 연동 API 기능 구현</b><br>
+        <b>- 주행시작 및 완료 기능 구현</b><br>
+        <b>- 대시보드 기반 구축</b><br>
     </td>   
   </tr>
   <tr>
