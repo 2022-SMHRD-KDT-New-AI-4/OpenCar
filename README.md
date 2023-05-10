@@ -103,7 +103,7 @@
 <br>
 
 ### 알림내역
-![opencar_alarm](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/dfc1aaf2-fa58-43a5-89b3-0191fcb10af5)
+![알림내역](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/07230c88-e9c1-4fd0-98ee-4e125050396a)
 <br>
 
 ## 👨‍👩‍👦‍👦 팀원 역할
@@ -124,12 +124,16 @@
   </tr>
   <tr>
     <td align="center">
-        <b>PM - 산출문서 관리</b><br>
-        <b>모델링 - 모델 설계 변수 선정 및 학습, CNN 모델 구현 및 학습, 눈 검출 및 판별 알고리즘 개발</b>
-        <b>안드로이드 - UI/UX 디자인</b>
+        <b>PM</b><br>
+        <b>-산출문서 관리</b>
+        <b>모델링</b><br>
+        <b>-모델 설계 변수 선정 및 학습, CNN 모델 구현 및 학습, 눈 검출 및 판별 알고리즘 개발</b><br>
+        <b>안드로이드</b><br>
+        <b>-UI/UX 디자인</b>
+        
     </td>
     <td align="center">
-        <b>예약페이지</b><br>
+        <b>모델링 -</b><br>
         <b>공간리스트</b><br>
         <b>DB관리</b>
     </td>
