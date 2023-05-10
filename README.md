@@ -73,7 +73,7 @@
 <br>
 
 ## 📌 메뉴 구성
-![service](https://user-images.githubusercontent.com/125417021/226229886-cde53346-d86e-4fe2-981b-5e47169dcb6c.PNG)
+![opencar menu](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/e401c789-91a3-47e1-a82b-aaebee476d25)
 <br>
 
 ## 📌 서비스 흐름도
@@ -81,15 +81,14 @@
 <br>
 
 ## 📌 ER다이어그램
-![myerd](https://user-images.githubusercontent.com/125417021/226236497-4a1f7832-f370-427c-a518-11cf2395b58b.png)
+![erdiagram](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/08796495-2571-40d5-a8ff-de296bb73c8a)
 <br>
 
 
 ## 🖥 화면 구성
 
 ### 로그인/회원가입/회원가입완료/회원정보
-![opencar_login](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/bbf4f9ff-2f04-4009-a0b1-9caee287c162)
-![opencar_join](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/6eda4d70-71db-4f14-b4d5-d90a6f0dd59e)
+![로그인_회원가입](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/b0033137-35a1-4fb1-962b-edee7925cadb)
 <br>
 
 ### 메인페이지
