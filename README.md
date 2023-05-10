@@ -175,9 +175,9 @@
   <tr>
     <td align="center"><a href="https://github.com/sora3601" target='_blank'>github</a></td>
     <td align="center"><a href="https://github.com/miniz2" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/marble052" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/mable052" target='_blank'>github</a></td>
     <td align="center"><a href="https://github.com/kim-sun-mi" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/rkwk1220" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/ue21" target='_blank'>github</a></td>
   </tr>
 </table>
 
