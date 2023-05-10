@@ -109,7 +109,7 @@
 ## 👨‍👩‍👦‍👦 팀원 역할
 <table>
   <tr>
-    <td align="center"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkwj8GyEw5VPMga7lrmJM7ymIq2CjKXAorWg&usqp=CAU" width="100" height="100"/></td>
+    <td align="center"><img src="https://item.kakaocdn.net/do/d274546cd441d60874f374b44122fd4b617ea012db208c18f6e83b1a90a7baa7" width="100" height="100"/></td>
     <td align="center"><img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA3MTVfMjcz%2FMDAxNjI2MzA5NDU1MDM4.YehqF-FAP8XidUuRJOCz43azobhNxhYgpB21GcUZKQkg.MzNwroBjWckQV1N6mUdKVu-5AnNFuXxTmIgbAWF_mUQg.JPEG.chimmy1004%2FIMG_0959.JPG&type=a340" width="100" height="100"/></td>
     <td align="center"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5n8I-GLiz8TkHtodyMumkDEU0UStEiNQKgA&usqp=CAU" width="100" height="100"/></td>
     <td align="center"><img src="https://mblogthumb-phinf.pstatic.net/MjAyMDA3MTBfMTMy/MDAxNTk0MzczNDk5MzI4.P7hqx3C68b2SxkwsxEg2j_6d6oH7sVm70bLQbfnyCEQg.iZERr5L2sHzB6gaM_W5fA20FWHvKghKHxXdJXpPDYzYg.JPEG.dlqls01/R720x0.jpg?type=w800" width="100" height="100"/></td>
