@@ -51,7 +51,7 @@
     <tr>
         <td>서버환경</td>
         <td>
-            <img src="https://img.shields.io/badge/Apache Tomcat-D22128?style=for-the-badge&logo=Apache Tomcat&logoColor=white"/>
+            <img src="https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/7a2459b3-4d94-4e3f-80e1-c756a70568a8"/>
         </td>
     </tr>
     <tr>
@@ -147,18 +147,14 @@
         <b>크롤링</b><br>
         <b>DB관리</b><br>
         <b>ID/PW 찾기</b>
-    </td>
-    <td align="center">
-        <b>FullCalendar API</b>
-    </td>
+   
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/mable052" target='_blank'>github</a></td>
     <td align="center"><a href="https://github.com/sora3601" target='_blank'>github</a></td>
     <td align="center"><a href="https://github.com/miniz2" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/kp1145" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/YUSEONGHOON" target='_blank'>github</a></td>
-    <td align="center"><a href="https://github.com/EungjinK" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/" target='_blank'>github</a></td>
   </tr>
 </table>
 
