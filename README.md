@@ -44,7 +44,7 @@
         <td>
             <img src="https://img.shields.io/badge/androidstudio-3DDC84?style=for-the-badge&logo=androidstudio&logoColor=white"/>
             <img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white"/>
-            <img src="https://img.shields.io/badge/nvidia-#76B900?style=for-the-badge&logo=nvidia&logoColor=white"/>
+            <img src="https://img.shields.io/badge/nvidia-76B900?style=for-the-badge&logo=nvidia&logoColor=white"/>
         </td>
     </tr>
     <tr>
