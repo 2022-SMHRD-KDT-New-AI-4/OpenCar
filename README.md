@@ -92,13 +92,11 @@
 <br>
 
 ### 메인페이지
-![opencar_main](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/d929903d-33b1-4aa1-9568-7744038cf55f)
+![메인페이지](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/b20456d0-5547-48a5-b6c6-02050718344f)
 <br>
 
 ### 주행시작
-![opencar_drive](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/241a3c11-b7af-4a16-9b1c-22cb0608745d)
-![opencar_popup](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/5956a555-2ba0-4445-88fd-5aa530ca5f01)
-![opencar_waring](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/e6c2bd31-9952-4cdf-8c7c-5844a251a6d8)
+![주행시작](https://github.com/2022-SMHRD-KDT-New-AI-4/OpenCar/assets/125417068/cfad7087-d759-4ac2-8cef-9465cb35b00d)
 <br>
 
 ### 패턴분석
